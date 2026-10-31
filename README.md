@@ -1,5 +1,9 @@
 # QualityPilot
 
+[![Quality checks](https://github.com/prapulinet/qualitypilot/actions/workflows/quality.yml/badge.svg)](https://github.com/prapulinet/qualitypilot/actions/workflows/quality.yml)
+![JavaScript](https://img.shields.io/badge/JavaScript-ESM-f7df1e?logo=javascript&logoColor=111827)
+![Node.js](https://img.shields.io/badge/Node.js-22%2B-5fa04e?logo=nodedotjs&logoColor=white)
+
 **A JavaScript QA workbench for turning requirements into reviewable test scenario drafts.**
 
 `JavaScript ESM` · `Node.js 22+` · `API integration tests` · `GitHub Actions` · `Human-reviewed AI`
@@ -75,3 +79,5 @@ Live AI has not been verified against a real provider. Automated tests use contr
 - [ ] Downloadable demo and screenshot evidence
 
 See [test strategy](docs/test-strategy.md), [30-day plan](docs/30-day-plan.md), and [interview walkthrough](docs/interview-walkthrough.md).
+
+Built by [Prapul](https://github.com/prapulinet). Explore the [automated checks](https://github.com/prapulinet/qualitypilot/actions) for execution evidence.
