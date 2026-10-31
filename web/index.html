@@ -1,12 +1,417 @@
 <!doctype html>
-<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QualityPilot · QA Workbench</title>
-<style>
-:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#0b1120;color:#e5edf8}*{box-sizing:border-box}body{margin:0}main{max-width:1100px;margin:auto;padding:40px 24px}nav{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #29364c;padding-bottom:22px}.logo{font-weight:800;letter-spacing:-1px;font-size:24px}.accent{color:#55dfc2}.pill{border:1px solid #33445f;border-radius:30px;padding:7px 12px;font-size:12px;color:#a9b8cc}.eyebrow{letter-spacing:3px;text-transform:uppercase;font-size:12px;color:#55dfc2;margin-top:55px}h1{font-size:clamp(36px,6vw,62px);line-height:1.05;letter-spacing:-2px;max-width:760px;margin:20px 0}p{color:#a9b8cc;line-height:1.7}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:35px}.panel,article{border:1px solid #29364c;border-radius:16px;background:#111c2e;padding:24px}h2{font-size:19px;margin-top:0}label{display:block;margin:18px 0 10px;font-size:14px}textarea,select{width:100%;background:#0b1120;color:#e5edf8;border:1px solid #40526f;border-radius:8px;padding:12px;font:inherit}textarea{min-height:150px;resize:vertical}button{background:#55dfc2;color:#08231f;border:0;border-radius:8px;padding:13px 20px;font-weight:750;cursor:pointer;margin-top:18px}button:disabled{opacity:.5}#status{font-size:14px;min-height:24px}article{margin-top:12px;padding:18px}article h3{margin:8px 0;font-size:16px}article p{font-size:14px;margin-bottom:0}li{font-size:14px;line-height:1.6;color:#b8c7d9}footer{margin-top:40px;color:#8293ad;font-size:12px}@media(max-width:750px){.grid{grid-template-columns:1fr}.pill{font-size:10px}}
-</style><main><nav><div class="logo">Quality<span class="accent">Pilot</span></div><span class="pill">QA ENGINEERING WORKBENCH · v0.1</span></nav>
-<div class="eyebrow">From requirement to review</div><h1>Better questions.<br><span class="accent">Stronger test coverage.</span></h1><p>Turn a user story into a reviewable scenario draft. Start with a transparent baseline or connect your AI gateway.</p>
-<div class="grid"><section class="panel"><h2>Scenario workbench</h2><form id="form"><label for="story">User story</label><textarea id="story" required minlength="15" maxlength="4000">As a customer, I want to sign in so that I can view my orders.</textarea><label for="mode">Generation mode</label><select id="mode"><option value="baseline">Baseline templates · no AI</option><option value="ai">AI gateway · configuration required</option></select><button id="generate">Generate draft</button></form><p id="status" role="status" aria-live="polite"></p></section><section class="panel"><h2>Review queue</h2><p>Drafts require human review against acceptance criteria. Nothing here executes tests automatically.</p><div id="results"><p>Your scenarios will appear here.</p></div></section></div><footer>QualityPilot / Local portfolio demonstration / Never submit confidential requirements to an unapproved AI gateway.</footer></main>
-<script>
-const form=document.querySelector('#form'),status=document.querySelector('#status'),results=document.querySelector('#results'),button=document.querySelector('#generate');
-form.addEventListener('submit',async(event)=>{event.preventDefault();button.disabled=true;status.textContent='Generating…';results.replaceChildren();try{const response=await fetch('/api/scenarios',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({story:document.querySelector('#story').value,mode:document.querySelector('#mode').value})});const data=await response.json();if(!response.ok)throw Error(data.error);status.textContent=`${data.scenarios.length} drafts · ${data.source} · review required`;for(const scenario of data.scenarios){const card=document.createElement('article'),id=document.createElement('span'),title=document.createElement('h3'),steps=document.createElement('ol'),expected=document.createElement('p');id.className='accent';id.textContent=scenario.id;title.textContent=scenario.title;for(const step of scenario.steps){const li=document.createElement('li');li.textContent=step;steps.append(li)}expected.textContent='Expected: '+scenario.expected;card.append(id,title,steps,expected);results.append(card)}}catch(error){status.textContent=error.message}finally{button.disabled=false}});
-</script></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="QualityPilot: a JavaScript QA workbench with scenario review, real API test execution and evidence-based triage."
+    />
+    <title>QualityPilot · Quality engineering workspace</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to workspace</a>
+    <aside class="sidebar">
+      <a class="brand" href="#workbench" aria-label="QualityPilot home"
+        ><span class="brand-icon">Q<span>·</span></span
+        ><span>QualityPilot<small>QUALITY ENGINEERING</small></span></a
+      >
+      <div class="workspace-label">YOUR WORKSPACE</div>
+      <nav aria-label="Workspace">
+        <a href="#workbench" data-view="workbench" aria-current="page"
+          ><span aria-hidden="true">◈</span> Scenario studio</a
+        >
+        <a href="#runs" data-view="runs"
+          ><span aria-hidden="true">▷</span> Test lab</a
+        >
+        <a href="#shop" data-view="shop"
+          ><span aria-hidden="true">▤</span> Demo commerce</a
+        >
+        <a href="#guide" data-view="guide"
+          ><span aria-hidden="true">☷</span> Project guide</a
+        >
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="live-dot"></span> Local workspace<small
+          >JavaScript · Node.js · Playwright</small
+        ><a
+          href="https://github.com/prapulinet/qualitypilot"
+          target="_blank"
+          rel="noreferrer"
+          >View source on GitHub ↗</a
+        >
+      </div>
+    </aside>
+    <main id="main">
+      <header class="topbar">
+        <div>
+          <span class="breadcrumb">Workspace / </span
+          ><span id="current-view">Scenario studio</span>
+        </div>
+        <div class="topbar-right">
+          <span class="environment">LOCAL DEMO</span
+          ><span class="avatar" aria-label="QA workspace">QA</span>
+        </div>
+      </header>
+      <div class="content">
+        <div id="notice" class="notice" role="alert" hidden></div>
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <div class="eyebrow"><span></span> BUILT FOR CURIOUS TESTERS</div>
+            <h1 id="hero-title">Ship confidence.<br />Keep the evidence.</h1>
+            <p>
+              Design thoughtful scenarios. Exercise real workflows.<br
+                class="desktop-break"
+              />
+              Turn every result into a better testing decision.
+            </p>
+            <div class="hero-links">
+              <a href="#runs" class="button white"
+                >Open test lab <span aria-hidden="true">↗</span></a
+              ><span class="hero-note">No API key needed to get started</span>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="orbit-core">✓</div>
+            <div class="float-card float-top">
+              <span class="mini-icon">✓</span> Evidence, first.
+            </div>
+            <div class="float-card float-bottom">
+              <span class="purple-dot"></span> Review → Test → Learn
+            </div>
+          </div>
+        </section>
+        <section class="metrics" aria-label="Latest execution metrics">
+          <div class="metric">
+            <div class="metric-label">
+              Latest pass rate <span aria-hidden="true">↗</span>
+            </div>
+            <strong id="metric-rate">—</strong
+            ><small id="metric-rate-note"
+              >Run a suite to collect evidence</small
+            >
+          </div>
+          <div class="metric">
+            <div class="metric-label">
+              Checks executed <span aria-hidden="true">◈</span>
+            </div>
+            <strong id="metric-total">0</strong
+            ><small>Actual HTTP assertions, latest run</small>
+          </div>
+          <div class="metric">
+            <div class="metric-label">
+              Runs this session <span aria-hidden="true">▷</span>
+            </div>
+            <strong id="metric-runs">0</strong
+            ><small>Up to 20 runs kept in server memory</small>
+          </div>
+          <div class="metric">
+            <div class="metric-label">
+              Gateway mode <span aria-hidden="true">✧</span>
+            </div>
+            <strong class="text-metric" id="metric-ai">Checking…</strong
+            ><small>Baseline works without an AI provider</small>
+          </div>
+        </section>
 
+        <section data-panel="workbench" aria-labelledby="studio-title">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow dark">01 / DESIGN</div>
+              <h2 id="studio-title">Scenario studio</h2>
+              <p>A clear requirement is the start of a useful test.</p>
+            </div>
+            <span class="tag">Human review required</span>
+          </div>
+          <div class="studio-grid">
+            <section
+              class="panel input-panel"
+              aria-labelledby="requirement-title"
+            >
+              <div class="panel-heading">
+                <h3 id="requirement-title">Start with a user story</h3>
+                <span class="step-label">INPUT</span>
+              </div>
+              <form id="form">
+                <label for="story">User story</label
+                ><textarea id="story" required minlength="15" maxlength="4000">
+As a customer, I want to sign in so that I can view my orders.</textarea>
+                <div class="field-help">
+                  <span>Describe the user, goal and expected value.</span
+                  ><span id="character-count">0 / 4000</span>
+                </div>
+                <label for="mode">Generation mode</label
+                ><select id="mode">
+                  <option value="baseline">Baseline templates · no AI</option>
+                  <option value="ai">
+                    AI gateway · configuration required
+                  </option>
+                </select>
+                <div class="info-note">
+                  <span aria-hidden="true">ⓘ</span>
+                  <p id="mode-help">
+                    Baseline drafts are generic review prompts. Adapt them to
+                    your acceptance criteria.
+                  </p>
+                </div>
+                <button id="generate" class="button primary" type="submit">
+                  Generate draft
+                </button>
+              </form>
+              <p
+                id="status"
+                class="status"
+                role="status"
+                aria-live="polite"
+              ></p>
+            </section>
+            <section class="panel results-panel" aria-labelledby="review-title">
+              <div class="panel-heading">
+                <h3 id="review-title">Review queue</h3>
+                <span class="count-badge" id="draft-count">0 drafts</span>
+              </div>
+              <div class="review-toolbar">
+                <p id="review-summary">
+                  Generate a draft, then review each scenario.
+                </p>
+                <button id="export-draft" class="button subtle small" disabled>
+                  Export JSON ↓
+                </button>
+              </div>
+              <div id="results" class="results">
+                <div class="empty-state">
+                  <div class="empty-icon" aria-hidden="true">◈</div>
+                  <h4>A little clarity goes a long way.</h4>
+                  <p>
+                    Your scenarios will appear here.<br />Start with a story on
+                    the left.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
+          <section class="panel history-panel">
+            <div class="panel-heading">
+              <h3>Recent drafts</h3>
+              <button id="clear-history" class="text-button">
+                Clear local history
+              </button>
+            </div>
+            <p class="muted small-text">
+              Last 8 drafts stay in this browser. Do not enter confidential
+              requirements.
+            </p>
+            <div id="draft-history" class="history-list"></div>
+          </section>
+        </section>
+
+        <section data-panel="runs" aria-labelledby="runs-title" hidden>
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow dark">02 / EXECUTE</div>
+              <h2 id="runs-title">Test lab</h2>
+              <p>Real requests. Explicit assertions. Reproducible evidence.</p>
+            </div>
+            <span class="tag">Local HTTP execution</span>
+          </div>
+          <section class="panel">
+            <form id="run-form" class="run-controls">
+              <div>
+                <label for="suite">Test suite</label
+                ><select id="suite">
+                  <option value="regression">
+                    Commerce regression · 12 checks
+                  </option>
+                  <option value="smoke">API smoke · 5 checks</option>
+                  <option value="diagnostic">
+                    Diagnostic exercise · 1 intentional failure
+                  </option>
+                </select>
+              </div>
+              <button class="button primary" id="run-suite">Run suite</button>
+            </form>
+            <p class="muted small-text">
+              Runs use isolated demo sessions and clean them up afterwards.
+              Diagnostic mode deliberately fails an expectation; it does not
+              represent a product bug.
+            </p>
+            <p
+              id="run-status"
+              class="status"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </section>
+          <div class="execution-grid">
+            <section class="panel">
+              <div class="panel-heading">
+                <h3>Execution history</h3>
+                <span class="step-label">SERVER SESSION</span>
+              </div>
+              <div id="run-history" class="history-list">
+                <p class="muted">No runs yet. Execute a suite to begin.</p>
+              </div>
+            </section>
+            <section class="panel">
+              <div class="panel-heading">
+                <h3>Run evidence</h3>
+                <button id="export-run" class="button subtle small" disabled>
+                  Download report ↓
+                </button>
+              </div>
+              <div id="run-results">
+                <div class="empty-state">
+                  <div class="empty-icon" aria-hidden="true">▷</div>
+                  <h4>Let the results speak.</h4>
+                  <p>Select a run to inspect each assertion.</p>
+                </div>
+              </div>
+              <div id="run-analysis" class="analysis"></div>
+            </section>
+          </div>
+        </section>
+
+        <section data-panel="shop" aria-labelledby="shop-title" hidden>
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow dark">03 / EXPLORE</div>
+              <h2 id="shop-title">The demo store</h2>
+              <p>A small commerce app. A useful surface for serious testing.</p>
+            </div>
+            <span class="tag">Synthetic data · no payments</span>
+          </div>
+          <section class="panel shop-session">
+            <div>
+              <h3>Your test sandbox</h3>
+              <p class="muted">
+                Sign in to add products and place a demo order. Sessions are
+                isolated and expire after one hour.
+              </p>
+            </div>
+            <button id="demo-login" class="button primary">
+              Sign in to demo</button
+            ><button id="demo-logout" class="button subtle" hidden>
+              Sign out
+            </button>
+          </section>
+          <p
+            id="shop-status"
+            class="status"
+            role="status"
+            aria-live="polite"
+          ></p>
+          <div id="products" class="product-grid"></div>
+          <section class="panel cart-panel">
+            <div class="panel-heading">
+              <h3>Your cart</h3>
+              <button id="clear-cart" class="text-button" disabled>
+                Clear cart
+              </button>
+            </div>
+            <div id="cart-items">
+              <p class="muted">Sign in to start your demo cart.</p>
+            </div>
+            <div class="cart-bottom">
+              <div>
+                <span class="muted small-text">Order total · USD</span
+                ><strong id="cart-total">$0.00</strong>
+              </div>
+              <button id="checkout" class="button primary" disabled>
+                Place demo order
+              </button>
+            </div>
+            <div id="order-result" hidden></div>
+          </section>
+        </section>
+
+        <section data-panel="guide" aria-labelledby="guide-title" hidden>
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow dark">04 / UNDERSTAND</div>
+              <h2 id="guide-title">Built to be explained</h2>
+              <p>
+                A portfolio should make its decisions and limits easy to
+                inspect.
+              </p>
+            </div>
+          </div>
+          <div class="guide-grid">
+            <section class="panel">
+              <h3>Five-minute walkthrough</h3>
+              <ol class="guide-list">
+                <li>Generate and review a baseline scenario draft.</li>
+                <li>Export it as JSON with its review state.</li>
+                <li>Run commerce regression in the test lab.</li>
+                <li>Inspect individual results and download the report.</li>
+                <li>
+                  Run diagnostic mode and review its evidence-based explanation.
+                </li>
+                <li>Try sign-in, cart and checkout in the demo store.</li>
+              </ol>
+            </section>
+            <section class="panel">
+              <h3>Honest by design</h3>
+              <p>
+                Scenario templates and failure triage work without AI and are
+                labeled as baseline / rule-based. An optional gateway can
+                generate AI drafts after configuration.
+              </p>
+              <p>
+                Browser automation is executed with Playwright from the command
+                line and in CI. The test lab runs fixed API checks; it cannot
+                execute arbitrary code.
+              </p>
+              <p>
+                Run history is in memory; drafts use browser storage. This
+                localhost demo has no production identity system.
+              </p>
+            </section>
+            <section class="panel">
+              <h3>Quality evidence</h3>
+              <p>
+                Desktop and mobile Chromium checks, API contracts, negative
+                scenarios, accessibility scans, HTML/JUnit reports and failure
+                traces.
+              </p>
+              <a
+                class="inline-link"
+                href="https://github.com/prapulinet/qualitypilot/actions"
+                target="_blank"
+                rel="noreferrer"
+                >Inspect CI artifacts ↗</a
+              >
+            </section>
+            <section class="panel">
+              <h3>Architecture</h3>
+              <p>
+                Browser → Node HTTP API → baseline / AI adapter / demo commerce
+                / fixed suite runner.
+              </p>
+              <p>
+                Dependencies are limited to development tooling. Tests isolate
+                sessions and use integer currency values.
+              </p>
+              <a
+                class="inline-link"
+                href="https://github.com/prapulinet/qualitypilot"
+                target="_blank"
+                rel="noreferrer"
+                >Read the source and test strategy ↗</a
+              >
+            </section>
+          </div>
+        </section>
+        <footer>
+          <span
+            >QualityPilot <span class="footer-dot">·</span> A QA engineering
+            portfolio by Prapul</span
+          ><span>Evidence over assumptions.</span>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

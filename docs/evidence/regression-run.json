@@ -1,0 +1,85 @@
+{
+  "id": "803bfcd2-ccab-425f-ad30-9da58843cec8",
+  "suite": "regression",
+  "createdAt": "2026-10-31T09:14:41.519Z",
+  "durationMs": 250,
+  "total": 12,
+  "passed": 12,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Health endpoint is available",
+      "category": "smoke",
+      "status": "passed",
+      "durationMs": 24
+    },
+    {
+      "name": "Catalog exposes three products with integer prices",
+      "category": "contract",
+      "status": "passed",
+      "durationMs": 5
+    },
+    {
+      "name": "Unauthenticated cart access is rejected",
+      "category": "access",
+      "status": "passed",
+      "durationMs": 3
+    },
+    {
+      "name": "Invalid credentials are rejected",
+      "category": "negative",
+      "status": "passed",
+      "durationMs": 7
+    },
+    {
+      "name": "Demo user can sign in",
+      "category": "positive",
+      "status": "passed",
+      "durationMs": 16
+    },
+    {
+      "name": "Empty checkout is rejected",
+      "category": "negative",
+      "status": "passed",
+      "durationMs": 2
+    },
+    {
+      "name": "Invalid quantities do not change the cart",
+      "category": "boundary",
+      "status": "passed",
+      "durationMs": 57
+    },
+    {
+      "name": "Unknown product is rejected",
+      "category": "negative",
+      "status": "passed",
+      "durationMs": 17
+    },
+    {
+      "name": "Cart totals are calculated in cents",
+      "category": "positive",
+      "status": "passed",
+      "durationMs": 2
+    },
+    {
+      "name": "Checkout creates an order and empties the cart",
+      "category": "positive",
+      "status": "passed",
+      "durationMs": 28
+    },
+    {
+      "name": "Checkout retry returns the same order",
+      "category": "reliability",
+      "status": "passed",
+      "durationMs": 15
+    },
+    {
+      "name": "Order ownership is isolated between sessions",
+      "category": "access",
+      "status": "passed",
+      "durationMs": 60
+    }
+  ],
+  "source": "live-local-http",
+  "diagnostic": false
+}

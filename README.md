@@ -1,83 +1,159 @@
+<div align="center">
+
 # QualityPilot
+
+### Ship confidence. Keep the evidence.
+
+A JavaScript quality engineering workspace with scenario review, live API checks, browser automation and evidence-based failure triage.
 
 [![Quality checks](https://github.com/prapulinet/qualitypilot/actions/workflows/quality.yml/badge.svg)](https://github.com/prapulinet/qualitypilot/actions/workflows/quality.yml)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ESM-f7df1e?logo=javascript&logoColor=111827)
-![Node.js](https://img.shields.io/badge/Node.js-22%2B-5fa04e?logo=nodedotjs&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-browser_tests-2ead33)
+![Node.js](https://img.shields.io/badge/Node.js-22.9%2B-5fa04e?logo=nodedotjs&logoColor=white)
 
-**A JavaScript QA workbench for turning requirements into reviewable test scenario drafts.**
+[Quick start](#quick-start) · [Quality evidence](#quality-evidence) · [Architecture](#architecture) · [Test strategy](docs/test-strategy.md)
 
-`JavaScript ESM` · `Node.js 22+` · `API integration tests` · `GitHub Actions` · `Human-reviewed AI`
+</div>
 
-> Portfolio project in active development. Baseline generation works locally without dependencies. Live AI requires a separately configured gateway. This is not a production test execution platform.
+![QualityPilot scenario studio — actual application screenshot](docs/images/overview.png)
 
-## Run in two commands
+## What you can do
+
+| Workspace               | Working behavior                                                                                                                 |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Scenario studio**     | Generate four baseline review prompts; review individually; save browser history; export JSON                                    |
+| **Test lab**            | Execute fixed smoke/regression suites against real local HTTP endpoints; inspect durations and assertions; download JSON reports |
+| **Demo commerce**       | Sign in, browse products, add to cart and place synthetic orders with session isolation and retry-safe checkout                  |
+| **Failure triage**      | Run an explicitly labeled diagnostic exercise and inspect evidence-linked, rule-based next steps                                 |
+| **Browser automation**  | Playwright tests on desktop and mobile Chromium, axe accessibility scans, HTML/JUnit reports, and retained failure artifacts     |
+| **Optional AI adapter** | Connect a trusted HTTPS gateway to generate reviewable AI drafts; no key is needed for the default experience                    |
+
+**AI provenance:** baseline drafts are generic templates, not AI output. Triage is rule-based. Live provider integration and model quality evaluation have not been performed. The app labels these boundaries explicitly.
+
+## Quick start
+
+Requires Node.js **22.9+** and npm.
 
 ```sh
-npm test
+git clone https://github.com/prapulinet/qualitypilot.git
+cd qualitypilot
+npm ci
 npm start
 ```
 
-Open http://127.0.0.1:3000. Paste a user story, generate a baseline draft, and review its positive, negative, boundary and access scenarios. Baseline scenarios are generic templates, not requirement-aware AI output.
+Open **http://127.0.0.1:3000**. No database, API key or paid service is required.
 
-## Why this project exists
+### Run the checks
 
-A scenario generator is only useful if its outputs can be reviewed and its failures can be understood. This project makes provenance explicit, validates input at the API boundary, rejects malformed provider responses, and keeps credentials on the server.
+```sh
+npx playwright install chromium
+npm run test:all
+npm run report
+```
+
+`npm run report` opens the Playwright HTML report. On Linux machines outside CI, browser installation may require `npx playwright install --with-deps chromium`.
+
+| Command                   | Purpose                                                           |
+| ------------------------- | ----------------------------------------------------------------- |
+| `npm test`                | Native unit, API integration and provider contract checks         |
+| `npm run test:e2e`        | Desktop/mobile browser checks; fresh application state per test   |
+| `npm run check`           | Syntax validation across application, test and tooling JavaScript |
+| `npm run format:check`    | Consistent source formatting                                      |
+| `npm run report`          | Open generated browser report                                     |
+| `npm run audit:ui`        | Inspect accessibility findings across the four views              |
+| `npm run preview:capture` | Recreate real screenshots and a sample regression result          |
+
+## Five-minute demo
+
+1. Generate a scenario draft; mark one scenario reviewed and export the JSON.
+2. Open **Test lab**, run **Commerce regression**, and inspect all 12 assertions.
+3. Download the actual run result.
+4. Select **Diagnostic exercise**. Its one intentional failure demonstrates the triage workflow; it is not a product defect.
+5. Open **Demo commerce**, sign in and place a demo order. No payment is processed.
+6. Inspect the browser test suite and generated HTML report.
+
+## Quality evidence
+
+Current local validation: **19 native tests + 28 browser checks passed**. Browser checks cover 14 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans of all four views.
+
+Every browser test owns a fresh Node server on an ephemeral port. Tests do not depend on an external website, shared cart state or a live AI provider.
+
+CI runs on pushes, pull requests, manual dispatch and a daily schedule. Native tests run on Node 22 and 24; the browser job uploads its HTML/JUnit reports and retained failure screenshots, videos and traces for 14 days. Scheduled tests produce evidence, not artificial contribution commits.
+
+[View GitHub Actions](https://github.com/prapulinet/qualitypilot/actions) · [Local verification details](docs/verification.md) · [Sample real API run](docs/evidence/regression-run.json)
+
+### Defects caught by testing
+
+- [QP-001](docs/bugs/QP-001.md): malformed HTML made AI mode impossible to select.
+- [QP-002](docs/bugs/QP-002.md): supporting text failed minimum contrast thresholds.
+
+<details>
+<summary>More application screenshots</summary>
+
+**Test lab with actual results**
+
+![Test lab](docs/images/test-lab.png)
+
+**Demo commerce**
+
+![Demo store](docs/images/demo-store.png)
+
+**Mobile workspace**
+
+<img src="docs/images/mobile.png" alt="QualityPilot mobile workspace" width="320">
+
+</details>
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-  A[Browser workbench] --> B[Node HTTP API]
-  B --> C[Deterministic baseline]
-  B --> D[Validated AI adapter]
-  D --> E[Configured HTTPS gateway]
-  C --> F[Human review]
-  E --> F
+  Browser[Browser workspace] --> API[Node HTTP API]
+  API --> Baseline[Baseline scenario templates]
+  API --> Gateway[Validated HTTPS AI adapter]
+  API --> Commerce[Isolated demo sessions]
+  API --> Runner[Fixed local HTTP suites]
+  Runner --> Commerce
+  Runner --> Reports[Run evidence and rule-based triage]
+  Playwright[Isolated browser fixtures] --> API
 ```
 
-| Layer | Responsibility |
-| --- | --- |
-| `web/index.html` | Responsive workbench, loading/error states, safe text rendering |
-| `src/server.js` | Routing, input validation, body limit, sanitized errors |
-| `src/scenarios.js` | Repeatable baseline templates with explicit provenance |
-| `src/provider.js` | Optional gateway contract, timeout, response validation |
-| `test/platform.test.js` | Behavior, boundary, API and provider contract tests |
+```text
+src/         HTTP boundary, commerce state, suite runner, AI adapter
+web/         Responsive UI, safe DOM rendering, review and export flows
+test/        Native behavior, API and contract tests
+e2e/         Playwright fixtures and desktop/mobile workflows
+tools/       Syntax checks, accessibility audits, previews, publishing
+docs/        Strategy, contracts, decisions, bug reports and real evidence
+.github/     CI and review templates
+```
 
-## Optional AI integration
+Engineering decisions: zero runtime dependencies; integer currency; isolated carts and orders; idempotent checkout; strict static asset allowlist and CSP; sanitized upstream errors; bounded local history; fixed execution targets. Read the [architecture decisions](docs/architecture-decisions.md) and [API contract](docs/api-contract.md).
 
-Set `AI_GATEWAY_URL` to a trusted HTTPS endpoint and `AI_GATEWAY_TOKEN` in your process environment, then restart the server. The application does not load `.env` files automatically. Do not commit credentials.
+## Optional AI configuration
 
-Gateway request: `POST` with bearer authorization and JSON `{ "story": "..." }`.
+Copy `.env.example` to `.env`, set `AI_GATEWAY_URL` and `AI_GATEWAY_TOKEN`, and restart. `npm start` loads this local file; `.env` is ignored by Git. Use an approved gateway and synthetic requirements.
 
-Required response:
+The adapter sends `POST {"story":"..."}` with bearer authorization to the configured HTTPS endpoint. It rejects redirects and uses a 15-second timeout. Expected response:
 
 ```json
-{"scenarios":[{"title":"Reject unauthorized order access","steps":["Request an order belonging to another account"],"expected":"Access is denied without exposing order data"}]}
+{
+  "scenarios": [
+    {
+      "title": "Reject unauthorized order access",
+      "steps": ["Request an order belonging to another session"],
+      "expected": "Access is denied without exposing order data"
+    }
+  ]
+}
 ```
 
-Live AI has not been verified against a real provider. Automated tests use controlled gateway doubles. Provider output is always a draft; the reviewer must check relevance, missing risks and correctness.
+This is a gateway contract, not a direct integration with a specific model API. Automated contract tests use controlled doubles. All generated output requires human review.
 
-## Quality evidence
+## Scope and limits
 
-`npm test` runs native Node tests without installing dependencies. Coverage includes story boundaries, malformed requests, media types, body size, route behavior, provider validation and sanitized upstream failures. `npm run check` checks source syntax. The included CI workflow runs both on Node 22 and 24 when pushed to GitHub; no CI pass is claimed before that run.
+This is a complete **local portfolio demonstration**, not a hosted multi-user service. Demo credentials are public fixtures. There is no real identity management, inventory or payment processing. Server run history resets on restart; browser draft history stays in local storage. Firefox, WebKit, load testing, manual screen-reader validation and real model evaluation are future work.
 
-## Engineering decisions
+## Author and contributions
 
-- Native Node HTTP and test runner keep the first increment reproducible and easy to inspect.
-- Injected gateway transport makes contract failures testable without paid API calls.
-- No silent fallback from AI to templates: source and failure stay visible.
-- Browser rendering uses `textContent` for generated output.
-- Localhost binding keeps this unauthenticated demo local. Authentication, rate limiting, persistent storage and deployment hardening are pending.
-
-## Roadmap — not implemented yet
-
-- [ ] Playwright UI tests for the workbench, keyboard behavior and errors
-- [ ] Demo commerce application with UI and API automation suites
-- [ ] HTML execution reports and failure traces
-- [ ] Human approval and saved scenario history
-- [ ] AI failure analysis evaluated against labeled examples
-- [ ] Downloadable demo and screenshot evidence
-
-See [test strategy](docs/test-strategy.md), [30-day plan](docs/30-day-plan.md), and [interview walkthrough](docs/interview-walkthrough.md).
-
-Built by [Prapul](https://github.com/prapulinet). Explore the [automated checks](https://github.com/prapulinet/qualitypilot/actions) for execution evidence.
+Built by [Prapul](https://github.com/prapulinet), with experience including 3 years in manual testing and 1 year in automation. See the [interview walkthrough](docs/interview-walkthrough.md) for an evidence-led project explanation and [CONTRIBUTING.md](CONTRIBUTING.md) to run or extend the project.
