@@ -154,6 +154,6 @@ This is a gateway contract, not a direct integration with a specific model API. 
 
 This is a complete **local portfolio demonstration**, not a hosted multi-user service. Demo credentials are public fixtures. There is no real identity management, inventory or payment processing. Server run history resets on restart; browser draft history stays in local storage. Firefox, WebKit, load testing, manual screen-reader validation and real model evaluation are future work.
 
-## Author and contributions
+## Author
 
-Built by [Prapul](https://github.com/prapulinet), with experience including 3 years in manual testing and 1 year in automation. See the [interview walkthrough](docs/interview-walkthrough.md) for an evidence-led project explanation and [CONTRIBUTING.md](CONTRIBUTING.md) to run or extend the project.
+[Prapul](https://github.com/prapulinet)
