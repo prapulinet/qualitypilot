@@ -20,7 +20,7 @@ The user reported that the instructed manual flows worked: commerce regression i
 
 ## Published milestone status
 
-The pre-planner baseline at commit `591178f0e34d68603cb099bb5cd81f5b91dd5d55` passed GitHub CI: https://github.com/prapulinet/qualitypilot/actions/runs/41191645458. This verifies the mobile history fix and the previous 28-browser-check suite. Connected-workspace, coverage-planner and bug-builder updates need their own remote CI run after publication.
+Application commit `35e08b23518d114da7c320538f3a7c090214a277` passed GitHub CI: https://github.com/prapulinet/qualitypilot/actions/runs/41198223155. Native Node 22/24 jobs and the Linux browser job succeeded. The final local handover regression also passed 40 native tests, 54 browser checks, syntax checks and formatting. Documentation-only handover changes may follow this application revision and should receive their normal CI run after publishing.
 
 The connected-workspace screenshot and `workspace-example.json` backup use explicitly synthetic demonstration states. They are separate from real automated test results. Native checks cover revision invalidation, closure/reopening, snapshot retention, malformed backups, the backup byte budget and Jira-draft field bounds; browser checks exercise the connected human workflow on desktop/mobile.
 

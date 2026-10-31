@@ -42,6 +42,8 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## Quick start
 
+For interview preparation, read the [project learning guide](docs/interview-learning-guide.md) or download its [Word version](docs/QualityPilot_Interview_and_Learning_Guide.docx). The [handover notes](docs/final-handover.md) record the verified application revision and current boundaries.
+
 Requires Node.js **22.9+** and npm.
 
 ```sh
