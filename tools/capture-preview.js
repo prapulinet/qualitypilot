@@ -42,6 +42,19 @@ try {
   await page.goto(`${base}/#shop`);
   await page.locator("#products article").first().waitFor();
   await page.screenshot({ path: "docs/images/demo-store.png", fullPage: true });
+  await page.goto(`${base}/#coverage`);
+  await page.getByRole("button", { name: "Build coverage plan" }).click();
+  await page.getByLabel("Impact · AC-1").selectOption("5");
+  await page.evaluate(() =>
+    window.scrollTo(
+      0,
+      document.querySelector('[data-panel="coverage"]').offsetTop - 24,
+    ),
+  );
+  await page.screenshot({
+    path: "docs/images/coverage-planner.png",
+    fullPage: false,
+  });
   const mobile = await browser.newContext({
     ...devices["Pixel 7"],
     deviceScaleFactor: 1,

@@ -1236,6 +1236,76 @@ footer {
     align-items: end;
   }
 }
+.coverage-matrix {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+[data-panel="coverage"] {
+  margin-top: 28px;
+}
+.coverage-card {
+  min-width: 0;
+}
+.coverage-card .panel-heading {
+  align-items: flex-start;
+}
+.coverage-card h3 {
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+}
+.coverage-card .tag {
+  flex-shrink: 0;
+}
+.coverage-metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.risk-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.risk-controls label {
+  margin-top: 0;
+}
+.risk-controls select {
+  margin-top: 8px;
+}
+.coverage-case {
+  border-top: 1px solid var(--line);
+  margin-top: 18px;
+  padding-top: 18px;
+}
+.coverage-case h4 {
+  font-size: 13px;
+}
+.coverage-case textarea {
+  min-height: 82px;
+}
+.review-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.review-check input {
+  accent-color: var(--purple);
+  width: 18px;
+  height: 18px;
+}
+.coverage-case button {
+  margin-top: 12px;
+}
+@media (max-width: 930px) {
+  .coverage-matrix {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 650px) {
+  .coverage-metrics {
+    grid-template-columns: 1fr;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *:before,

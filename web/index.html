@@ -10,6 +10,7 @@
     <title>QualityPilot · Quality engineering workspace</title>
     <link rel="stylesheet" href="/styles.css" />
     <script type="module" src="/app.js"></script>
+    <script type="module" src="/coverage.js"></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to workspace</a>
@@ -20,6 +21,9 @@
       >
       <div class="workspace-label">YOUR WORKSPACE</div>
       <nav aria-label="Workspace">
+        <a href="#coverage" data-view="coverage"
+          ><span aria-hidden="true">◎</span> Coverage planner</a
+        >
         <a href="#workbench" data-view="workbench" aria-current="page"
           ><span aria-hidden="true">◈</span> Scenario studio</a
         >
@@ -84,6 +88,68 @@
               <span class="purple-dot"></span> Review → Test → Learn
             </div>
           </div>
+        </section>
+        <section data-panel="coverage" aria-labelledby="coverage-title" hidden>
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow dark">PLAN / PRIORITIZE / TRACE</div>
+              <h2 id="coverage-title">Risk &amp; coverage planner</h2>
+              <p>
+                Make acceptance criteria traceable. Find gaps before release.
+              </p>
+            </div>
+            <span class="tag">Manual evidence · no AI required</span>
+          </div>
+          <section class="panel">
+            <form id="coverage-form">
+              <label for="criteria">Acceptance criteria · one per line</label
+              ><textarea id="criteria" maxlength="4000" required>
+Valid customers can sign in and view their own orders.
+Invalid credentials must not grant account access.</textarea>
+              <p class="muted small-text">
+                1–12 criteria, 10–250 characters each. Building a new plan
+                replaces the saved plan. Generated checks are review prompts;
+                tailor expected behavior to the requirement.
+              </p>
+              <button class="button primary">Build coverage plan</button>
+            </form>
+            <p
+              id="coverage-status"
+              class="status"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </section>
+          <div class="metrics coverage-metrics">
+            <div class="metric">
+              <div class="metric-label">Designs reviewed</div>
+              <strong id="coverage-reviewed">0/0</strong
+              ><small>Reviewed checks / planned checks</small>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Manual passes recorded</div>
+              <strong id="coverage-passed">0/0</strong
+              ><small>Evidence notes required</small>
+            </div>
+            <div class="metric">
+              <div class="metric-label">High-risk gaps</div>
+              <strong id="coverage-gaps">0</strong
+              ><small>Impact × likelihood ≥ 15</small>
+            </div>
+          </div>
+          <section class="panel">
+            <div class="panel-heading">
+              <h3>Traceability matrix</h3>
+              <button id="coverage-export" class="button subtle small" disabled>
+                Export CSV ↓
+              </button>
+            </div>
+            <p id="coverage-verdict" class="muted">
+              Build a plan to inspect gaps. These metrics reflect manually
+              recorded review and results, not automated test coverage.
+            </p>
+          </section>
+          <div id="coverage-matrix" class="coverage-matrix"></div>
         </section>
         <section class="metrics" aria-label="Latest execution metrics">
           <div class="metric">

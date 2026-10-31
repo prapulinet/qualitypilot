@@ -19,6 +19,10 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## What you can do
 
+**New: Risk & Coverage Planner.** Turn acceptance criteria into linked review prompts, score impact × likelihood, track manual evidence, surface high-risk gaps and export a formula-safe CSV traceability matrix. [Workflow and metric definitions](docs/coverage-planner.md).
+
+![Risk and coverage planner](docs/images/coverage-planner.png)
+
 | Workspace               | Working behavior                                                                                                                 |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | **Scenario studio**     | Generate four baseline review prompts; review individually; save browser history; export JSON                                    |
@@ -60,7 +64,7 @@ npm run report
 | `npm run check`           | Syntax validation across application, test and tooling JavaScript |
 | `npm run format:check`    | Consistent source formatting                                      |
 | `npm run report`          | Open generated browser report                                     |
-| `npm run audit:ui`        | Inspect accessibility findings across the four views              |
+| `npm run audit:ui`        | Inspect accessibility findings across the five views              |
 | `npm run preview:capture` | Recreate real screenshots and a sample regression result          |
 
 ## Five-minute demo
@@ -74,7 +78,7 @@ npm run report
 
 ## Quality evidence
 
-Current local validation: **19 native tests + 28 browser checks passed**. Browser checks cover 14 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans of all four views.
+Current local validation: **25 native tests + 36 browser checks passed**. Browser checks cover 18 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans of all five views.
 
 Every browser test owns a fresh Node server on an ephemeral port. Tests do not depend on an external website, shared cart state or a live AI provider.
 

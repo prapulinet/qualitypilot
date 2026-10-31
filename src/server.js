@@ -10,6 +10,11 @@ const assets = new Map([
   ["/", ["index.html", "text/html; charset=utf-8"]],
   ["/app.js", ["app.js", "text/javascript; charset=utf-8"]],
   ["/styles.css", ["styles.css", "text/css; charset=utf-8"]],
+  ["/coverage.js", ["coverage.js", "text/javascript; charset=utf-8"]],
+  [
+    "/coverage-model.js",
+    ["coverage-model.js", "text/javascript; charset=utf-8"],
+  ],
 ]);
 
 class RequestError extends Error {

@@ -10,7 +10,7 @@ try {
     viewport: { width: 1440, height: 1100 },
   });
   const page = await context.newPage();
-  for (const view of ["workbench", "runs", "shop", "guide"]) {
+  for (const view of ["workbench", "coverage", "runs", "shop", "guide"]) {
     await page.goto(`http://127.0.0.1:${server.address().port}/#${view}`);
     if (view === "shop")
       await page.locator("#products article").first().waitFor();
