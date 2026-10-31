@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "id": "3d7d579a-7454-4cd0-a973-f2a92ffc36b6",
+      "name": "SYNTHETIC — account release demo",
+      "requirements": [
+        {
+          "id": "338a8dab-d906-4737-80ae-f49cc8aff877",
+          "title": "Profile changes remain after refresh.",
+          "impact": 5,
+          "likelihood": 4,
+          "revision": 1
+        }
+      ],
+      "cases": [
+        {
+          "id": "76b0eb6a-67b2-4f4a-8ea8-e2a4d7ee64d9",
+          "requirementId": "338a8dab-d906-4737-80ae-f49cc8aff877",
+          "title": "Persist updated display name",
+          "steps": "Edit the test name, save, refresh",
+          "expected": "Updated test name remains",
+          "version": 1,
+          "reviewedRevision": 1
+        }
+      ],
+      "runs": [
+        {
+          "id": "9be5fdb2-8178-44c1-af96-c836475adb70",
+          "name": "Synthetic initial session",
+          "createdAt": "2026-10-31T11:25:59.053Z",
+          "cases": [
+            {
+              "caseId": "76b0eb6a-67b2-4f4a-8ea8-e2a4d7ee64d9",
+              "requirementId": "338a8dab-d906-4737-80ae-f49cc8aff877",
+              "requirementRevision": 1,
+              "caseVersion": 1,
+              "title": "Persist updated display name",
+              "steps": "Edit the test name, save, refresh",
+              "expected": "Updated test name remains",
+              "status": "failed",
+              "actual": "Synthetic example: old name returned",
+              "evidence": "SYNTHETIC-initial-example"
+            }
+          ]
+        },
+        {
+          "id": "d4a62167-e428-4365-91f7-3a343850ae2d",
+          "name": "Synthetic retest session",
+          "createdAt": "2026-10-31T11:25:59.053Z",
+          "cases": [
+            {
+              "caseId": "76b0eb6a-67b2-4f4a-8ea8-e2a4d7ee64d9",
+              "requirementId": "338a8dab-d906-4737-80ae-f49cc8aff877",
+              "requirementRevision": 1,
+              "caseVersion": 1,
+              "title": "Persist updated display name",
+              "steps": "Edit the test name, save, refresh",
+              "expected": "Updated test name remains",
+              "status": "passed",
+              "actual": "Synthetic example: new name remained",
+              "evidence": "SYNTHETIC-retest-example"
+            }
+          ]
+        }
+      ],
+      "defects": [
+        {
+          "id": "db994737-c358-4d9f-ae80-947b919d2f6b",
+          "runId": "9be5fdb2-8178-44c1-af96-c836475adb70",
+          "caseId": "76b0eb6a-67b2-4f4a-8ea8-e2a4d7ee64d9",
+          "title": "Synthetic name persistence defect",
+          "severity": "Major",
+          "status": "open",
+          "evidence": "SYNTHETIC-initial-example",
+          "resolution": ""
+        }
+      ],
+      "events": [
+        {
+          "id": "bed1d5c2-4652-4445-8de3-4ba5c7a27d88",
+          "at": "2026-10-31T11:25:59.053Z",
+          "action": "requirement-created",
+          "target": "338a8dab-d906-4737-80ae-f49cc8aff877"
+        },
+        {
+          "id": "bd0d81b8-7bc7-414d-ba04-57cdd2bc098f",
+          "at": "2026-10-31T11:25:59.053Z",
+          "action": "case-created",
+          "target": "76b0eb6a-67b2-4f4a-8ea8-e2a4d7ee64d9"
+        },
+        {
+          "id": "a4bd63af-26ba-40cd-ac5a-277c98799f5a",
+          "at": "2026-10-31T11:25:59.053Z",
+          "action": "case-reviewed",
+          "target": "76b0eb6a-67b2-4f4a-8ea8-e2a4d7ee64d9"
+        },
+        {
+          "id": "ea37c957-e3dd-40cc-b891-480de60f20ec",
+          "at": "2026-10-31T11:25:59.053Z",
+          "action": "session-created",
+          "target": "9be5fdb2-8178-44c1-af96-c836475adb70"
+        },
+        {
+          "id": "9002e828-67cd-4f49-9433-85684a801dc7",
+          "at": "2026-10-31T11:25:59.053Z",
+          "action": "result-not-run-to-failed",
+          "target": "9be5fdb2-8178-44c1-af96-c836475adb70/76b0eb6a-67b2-4f4a-8ea8-e2a4d7ee64d9"
+        },
+        {
+          "id": "1cb06db1-6901-4b18-9ee5-d7835ba278fc",
+          "at": "2026-10-31T11:25:59.053Z",
+          "action": "defect-linked",
+          "target": "db994737-c358-4d9f-ae80-947b919d2f6b"
+        },
+        {
+          "id": "5d2e51c4-6fad-4028-b643-e6f1b2d80974",
+          "at": "2026-10-31T11:25:59.053Z",
+          "action": "session-created",
+          "target": "d4a62167-e428-4365-91f7-3a343850ae2d"
+        },
+        {
+          "id": "6b930a33-6bb7-4bcd-ba9a-f2b5e6542be1",
+          "at": "2026-10-31T11:25:59.053Z",
+          "action": "result-not-run-to-passed",
+          "target": "d4a62167-e428-4365-91f7-3a343850ae2d/76b0eb6a-67b2-4f4a-8ea8-e2a4d7ee64d9"
+        }
+      ]
+    }
+  ]
+}

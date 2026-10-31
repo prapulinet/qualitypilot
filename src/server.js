@@ -7,6 +7,11 @@ import { createCommerce } from "./commerce.js";
 import { executeSuite, analyzeRun } from "./runner.js";
 
 const assets = new Map([
+  ["/workspace.js", ["workspace.js", "text/javascript; charset=utf-8"]],
+  [
+    "/workspace-model.js",
+    ["workspace-model.js", "text/javascript; charset=utf-8"],
+  ],
   ["/bugs.js", ["bugs.js", "text/javascript; charset=utf-8"]],
   ["/bug-model.js", ["bug-model.js", "text/javascript; charset=utf-8"]],
   ["/", ["index.html", "text/html; charset=utf-8"]],

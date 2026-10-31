@@ -1242,6 +1242,71 @@ footer {
   gap: 20px;
   margin-top: 20px;
 }
+.sidebar {
+  overflow-y: auto;
+}
+[data-panel="workspace"] {
+  margin-top: 28px;
+}
+.workspace-spacer {
+  margin-top: 20px;
+}
+.workspace-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+[data-panel="workspace"] input:not([type="checkbox"]) {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  color: #35415b;
+  background: #fcfcff;
+  border: 1px solid #d9deeb;
+  border-radius: 8px;
+}
+[data-panel="workspace"] summary {
+  cursor: pointer;
+  font-weight: 650;
+  line-height: 1.7;
+}
+[data-panel="workspace"] details[open] > summary {
+  margin-bottom: 18px;
+}
+.workspace-record {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  margin-top: 22px;
+}
+.workspace-record h4 {
+  overflow-wrap: anywhere;
+}
+.workspace-record textarea,
+.workspace-inline-form textarea {
+  min-height: 85px;
+}
+.workspace-record button,
+.workspace-inline-form button {
+  margin: 14px 10px 0 0;
+}
+.workspace-inline-form {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+.workspace-inline-form button {
+  align-self: end;
+}
+#workspace-boundaries {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 650px) {
+  .workspace-inline-form {
+    grid-template-columns: 1fr;
+  }
+}
 [data-panel="bugs"] {
   margin-top: 28px;
 }

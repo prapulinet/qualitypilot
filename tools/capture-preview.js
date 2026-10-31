@@ -1,6 +1,16 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { chromium, devices } from "@playwright/test";
 import { createServer } from "../src/server.js";
+import {
+  createWorkspace,
+  addRequirement,
+  addCase,
+  reviewCase,
+  startRun,
+  recordResult,
+  linkDefect,
+  backup,
+} from "../web/workspace-model.js";
 
 const server = createServer({ endpoint: "", token: "" });
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
@@ -78,6 +88,86 @@ try {
   );
   await page.screenshot({
     path: "docs/images/bug-builder.png",
+    fullPage: false,
+  });
+  const project = createWorkspace("SYNTHETIC — account release demo");
+  const requirement = addRequirement(
+    project,
+    "Profile changes remain after refresh.",
+    5,
+    4,
+  );
+  const design = addCase(project, {
+    requirementId: requirement.id,
+    title: "Persist updated display name",
+    steps: "Edit the test name, save, refresh",
+    expected: "Updated test name remains",
+  });
+  reviewCase(project, design.id);
+  const initial = startRun(project, "Synthetic initial session");
+  recordResult(project, initial.id, design.id, {
+    status: "failed",
+    actual: "Synthetic example: old name returned",
+    evidence: "SYNTHETIC-initial-example",
+  });
+  linkDefect(project, initial.id, design.id, {
+    title: "Synthetic name persistence defect",
+    severity: "Major",
+  });
+  const retest = startRun(project, "Synthetic retest session");
+  recordResult(project, retest.id, design.id, {
+    status: "passed",
+    actual: "Synthetic example: new name remained",
+    evidence: "SYNTHETIC-retest-example",
+  });
+  const fixtureBackup = backup([project]);
+  await writeFile("docs/evidence/workspace-example.json", fixtureBackup + "\n");
+  await page.goto(`${base}/#workspace`);
+  await page.getByText("Restore a workspace backup", { exact: true }).click();
+  await page.getByLabel("Workspace JSON backup · max 2 MB").setInputFiles({
+    name: "example.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(fixtureBackup),
+  });
+  await page
+    .getByRole("checkbox", {
+      name: "I understand restoring replaces the current in-memory project collection.",
+    })
+    .check();
+  await page
+    .getByRole("button", { name: "Restore backup", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  await page.locator("#workspace-detail details").evaluateAll((nodes) =>
+    nodes.forEach((node) => {
+      node.open = false;
+    }),
+  );
+  await page.evaluate(() =>
+    window.scrollTo(
+      0,
+      document.querySelector('[data-panel="workspace"]').offsetTop - 24,
+    ),
+  );
+  await page.screenshot({
+    path: "docs/images/qa-workspace.png",
+    fullPage: false,
+  });
+  await page.locator("#workspace-execution").evaluate((node) => {
+    node.closest("details").open = true;
+  });
+  await page
+    .getByLabel("Inspect execution session", { exact: true })
+    .selectOption(initial.id);
+  await page.evaluate(() =>
+    window.scrollTo(
+      0,
+      document.querySelector("#workspace-execution").closest("details")
+        .offsetTop - 24,
+    ),
+  );
+  await page.screenshot({
+    path: "docs/images/execution-evidence.png",
     fullPage: false,
   });
   const mobile = await browser.newContext({

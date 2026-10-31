@@ -10,6 +10,7 @@
     <title>QualityPilot · Quality engineering workspace</title>
     <link rel="stylesheet" href="/styles.css" />
     <script type="module" src="/app.js"></script>
+    <script type="module" src="/workspace.js"></script>
     <script type="module" src="/bugs.js"></script>
     <script type="module" src="/coverage.js"></script>
   </head>
@@ -22,6 +23,9 @@
       >
       <div class="workspace-label">YOUR WORKSPACE</div>
       <nav aria-label="Workspace">
+        <a href="#workspace" data-view="workspace"
+          ><span aria-hidden="true">▦</span> QA workspace</a
+        >
         <a href="#bugs" data-view="bugs"
           ><span aria-hidden="true">⚑</span> Bug report builder</a
         >
@@ -639,6 +643,199 @@ Refresh the page"
               <ul id="bug-questions" class="guide-list"></ul>
             </section>
           </div>
+        </section>
+        <section
+          data-panel="workspace"
+          aria-labelledby="workspace-title"
+          hidden
+        >
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow dark">DESIGN / EXECUTE / RETEST / DECIDE</div>
+              <h2 id="workspace-title">Connected QA workspace</h2>
+              <p>
+                Keep requirements, versioned designs, manual evidence and
+                release decisions together.
+              </p>
+            </div>
+            <span class="tag">Local projects · human sign-off</span>
+          </div>
+          <section class="panel">
+            <form id="workspace-create" class="run-controls">
+              <div>
+                <label for="workspace-new-name">New project name</label
+                ><input
+                  id="workspace-new-name"
+                  maxlength="80"
+                  required
+                  placeholder="Example: Customer account release"
+                />
+              </div>
+              <button class="button primary">Create project</button>
+            </form>
+            <label for="workspace-select">Active project</label
+            ><select id="workspace-select"></select>
+            <div class="workspace-actions">
+              <button id="workspace-save" class="button primary">
+                Save locally</button
+              ><button id="workspace-export" class="button subtle">
+                Export workspace backup</button
+              ><button id="workspace-import-plan" class="button subtle">
+                Import coverage draft
+              </button>
+              <button id="workspace-delete" class="text-button" disabled>
+                Delete selected project
+              </button>
+            </div>
+            <p class="muted small-text">
+              Changes stay in memory until you explicitly Save locally. This
+              stores the project, evidence and defect details in this browser.
+              Use only permitted data. Export a separate backup; browser storage
+              can be cleared.
+            </p>
+            <p id="workspace-save-state" class="muted small-text">
+              In-memory workspace · no saved changes yet
+            </p>
+            <p
+              id="workspace-status"
+              class="status"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </section>
+          <div id="workspace-empty" class="empty-state">
+            <h3>Build a traceable quality story.</h3>
+            <p>
+              Create a project, add a criterion and reviewed test design, then
+              record what you observed.
+            </p>
+          </div>
+          <div id="workspace-detail" hidden>
+            <div class="section-heading workspace-spacer">
+              <h3 id="workspace-name"></h3>
+              <span class="tag">Manual evidence, not automated coverage</span>
+            </div>
+            <div class="metrics">
+              <div class="metric">
+                <div class="metric-label">Designed tests</div>
+                <strong id="workspace-case-count">0</strong>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Latest session passes</div>
+                <strong id="workspace-pass-count">0</strong>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Open defects</div>
+                <strong id="workspace-defect-count">0</strong>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Review blockers</div>
+                <strong id="workspace-blocker-count">0</strong>
+              </div>
+            </div>
+            <section class="panel">
+              <div class="panel-heading">
+                <h3 id="workspace-decision">Release review</h3>
+                <button id="workspace-report" class="button subtle small">
+                  Download release review
+                </button>
+              </div>
+              <ul id="workspace-blockers" class="guide-list"></ul>
+              <p class="muted small-text">
+                Uses the newest session and current requirement/design
+                revisions. Artifact references and manual outcomes are
+                user-reported. “Ready” means ready for human review, not
+                approved or bug-free.
+              </p>
+            </section>
+            <details class="panel workspace-spacer" open>
+              <summary>1. Acceptance criteria &amp; change impact</summary>
+              <p class="muted small-text">
+                Updating a criterion or its risk increments its revision and
+                makes related designs require re-review.
+              </p>
+              <div id="workspace-requirements"></div>
+            </details>
+            <details class="panel workspace-spacer" open>
+              <summary>2. Editable test designs</summary>
+              <p class="muted small-text">
+                Save edits before reviewing. Imported prompts require confirmed
+                expected behavior. All designs must be reviewed before a session
+                starts.
+              </p>
+              <div id="workspace-cases"></div>
+            </details>
+            <details class="panel workspace-spacer" open>
+              <summary>3. Execution sessions &amp; evidence</summary>
+              <div id="workspace-execution"></div>
+            </details>
+            <details class="panel workspace-spacer" open>
+              <summary>4. Linked defects &amp; retest</summary>
+              <div id="workspace-defects"></div>
+            </details>
+            <details class="panel workspace-spacer">
+              <summary>Recent activity</summary>
+              <ul id="workspace-events" class="guide-list"></ul>
+              <p class="muted small-text">
+                Last 200 local actions retained; this is not a tamper-proof
+                audit log.
+              </p>
+            </details>
+          </div>
+          <details class="panel workspace-spacer">
+            <summary>Restore a workspace backup</summary>
+            <form id="workspace-restore">
+              <label for="workspace-backup-file"
+                >Workspace JSON backup · max 2 MB</label
+              ><input
+                id="workspace-backup-file"
+                type="file"
+                accept="application/json,.json"
+                required
+              /><label class="review-check"
+                ><input type="checkbox" required /> I understand restoring
+                replaces the current in-memory project collection.</label
+              ><button class="button subtle">Restore backup</button>
+            </form>
+            <p class="muted small-text">
+              Invalid files leave the current collection untouched. Imported
+              manual evidence is unverified; saving locally is a separate
+              action.
+            </p>
+          </details>
+          <details class="panel workspace-spacer">
+            <summary>Numeric boundary test data assistant</summary>
+            <form id="workspace-boundary-form" class="run-controls">
+              <div>
+                <label for="workspace-min">Inclusive minimum</label
+                ><input
+                  id="workspace-min"
+                  type="number"
+                  min="-1000000"
+                  max="1000000"
+                  step="1"
+                  required
+                />
+              </div>
+              <div>
+                <label for="workspace-max">Inclusive maximum</label
+                ><input
+                  id="workspace-max"
+                  type="number"
+                  min="-1000000"
+                  max="1000000"
+                  step="1"
+                  required
+                />
+              </div>
+              <button class="button subtle">Generate boundaries</button>
+            </form>
+            <pre id="workspace-boundaries"></pre>
+            <p class="muted small-text">
+              Deterministic integer values around the supplied inclusive limits;
+              confirm actual product rules before using.
+            </p>
+          </details>
         </section>
         <footer>
           <span

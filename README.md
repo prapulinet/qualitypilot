@@ -19,6 +19,10 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## What you can do
 
+**Connected QA Workspace (v1.1):** manage local projects, acceptance-criterion revisions, editable/reviewed designs, session snapshots, observed results, linked defects and passing retests. Derive a human release-review report from current evidence. Import Coverage planner drafts and hand failed-session details to the Bug Report Builder. [Architecture and walkthrough](docs/connected-workspace.md).
+
+![Connected QA workspace — synthetic demonstration data](docs/images/qa-workspace.png)
+
 **Local Bug Report Builder:** describe an observed issue, enter known expected/actual behavior, and prepare an editable Jira-ready report. Missing details stay marked for confirmation. Copy/download the text and attach screenshots manually in Jira. No AI or Jira access is required; bug inputs and screenshot previews are not uploaded or persisted by the app. [Workflow](docs/bug-builder.md).
 
 **New: Risk & Coverage Planner.** Turn acceptance criteria into linked review prompts, score impact × likelihood, track manual evidence, surface high-risk gaps and export a formula-safe CSV traceability matrix. [Workflow and metric definitions](docs/coverage-planner.md).
@@ -66,7 +70,7 @@ npm run report
 | `npm run check`           | Syntax validation across application, test and tooling JavaScript |
 | `npm run format:check`    | Consistent source formatting                                      |
 | `npm run report`          | Open generated browser report                                     |
-| `npm run audit:ui`        | Inspect accessibility findings across the six views               |
+| `npm run audit:ui`        | Inspect accessibility findings across the seven views             |
 | `npm run preview:capture` | Recreate real screenshots and a sample regression result          |
 
 ## Five-minute demo
@@ -80,7 +84,7 @@ npm run report
 
 ## Quality evidence
 
-Current local validation: **30 native tests + 44 browser checks passed**. Browser checks cover 22 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans of all six views.
+Current local validation: **40 native tests + 54 browser checks passed**. Browser checks cover 27 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans of all seven views.
 
 Every browser test owns a fresh Node server on an ephemeral port. Tests do not depend on an external website, shared cart state or a live AI provider.
 

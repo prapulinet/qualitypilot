@@ -1,5 +1,13 @@
 # Architecture decisions
 
+## ADR 007 · Version evidence and derive decisions
+
+The connected workspace separates current acceptance-criterion revisions, test-design versions and per-session snapshots. Review approval binds to a criterion revision; editing a design invalidates its approval. Release readiness is derived from the newest session, current revisions and open-defect severity, rather than saved as an independently mutable Boolean. The source remains manually recorded evidence and human sign-off is required.
+
+## ADR 008 · Explicit persistence and validated interchange
+
+Local projects use opt-in browser storage plus versioned JSON backups. Imports reconstruct an allowlisted schema and validate identifiers/links before replacing memory. UI mutations enforce the same UTF-8 size budget used by import, so users cannot grow a collection beyond its supported backup envelope. Validation does not authenticate manual claims.
+
 ## ADR 001 · Keep the runtime small
 
 Use native Node HTTP, fetch and test runner. Runtime dependencies are zero. Tradeoff: explicit route and validation code must remain small and reviewable. Playwright, axe and Prettier are development dependencies.

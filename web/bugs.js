@@ -3,6 +3,23 @@ const form = document.querySelector("#bug-form");
 const status = document.querySelector("#bug-status");
 const output = document.querySelector("#bug-output");
 let imageURL;
+window.addEventListener("qp:bug-draft", (event) => {
+  document.querySelector("#bug-clear").click();
+  for (const field of [
+    "issue",
+    "title",
+    "steps",
+    "expected",
+    "actual",
+    "evidence",
+    "story",
+  ]) {
+    if (typeof event.detail?.[field] === "string")
+      form.elements.namedItem(field).value = event.detail[field];
+  }
+  status.textContent =
+    "Failed session details copied locally. Confirm environment, severity and reproduction details, then prepare the report.";
+});
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   try {

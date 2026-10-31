@@ -15,12 +15,14 @@ Validate a local JavaScript QA workbench with scenario review, an optional gatew
 | Shared state causes flakiness            | Fresh server per API/browser test and disposable suite sessions           |
 | Failure analysis overclaims              | Explicit diagnostic expectation and rule-based evidence assertions        |
 | UI unusable on mobile/keyboard           | Responsive overflow and focus/activation checks                           |
-| Low contrast or missing accessible names | axe WCAG A/AA scans across six views on desktop/mobile                    |
+| Low contrast or missing accessible names | axe WCAG A/AA scans across seven views on desktop/mobile                  |
 
 ## Layers
 
-- **30 native tests:** scenario behavior, API contracts, commerce boundaries, run orchestration and simulated provider contracts.
-- **44 browser checks:** 22 workflows/assertion groups on desktop and mobile Chromium. The mobile project uses device emulation, not a physical phone.
+The connected workspace adds requirement-change impact, editable design versions, snapshot retention, explicit local persistence, malformed-backup rejection, confirmed deletion, failed-result handoff, retest-based closure/reopening and release-policy checks. Its manual results are not added to automated CI pass counts.
+
+- **40 native tests:** scenario behavior, API contracts, commerce boundaries, run orchestration and simulated provider contracts.
+- **54 browser checks:** 27 workflows/assertion groups on desktop and mobile Chromium. The mobile project uses device emulation, not a physical phone.
 - **Built-in test lab:** smoke (5), regression (12), diagnostic (13, including 1 intentional failure). These are separate from the repository test counts.
 - **Visual inspection:** actual desktop/mobile screenshots captured from the running app and inspected for layout.
 
