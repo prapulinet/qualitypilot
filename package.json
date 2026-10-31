@@ -4,6 +4,19 @@
   "private": true,
   "description": "Evidence-first QA portfolio with a deterministic test workbench and optional AI scenario adapter",
   "type": "module",
-  "engines": { "node": ">=22" },
-  "scripts": { "start": "node src/server.js", "test": "node --test", "check": "node --check src/server.js && node --check src/scenarios.js && node --check src/provider.js" }
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "test": "node --test test/*.test.js",
+    "check": "node --check src/server.js && node --check src/scenarios.js && node --check src/provider.js",
+    "test:e2e": "playwright test",
+    "test:all": "npm run check && npm test && npm run test:e2e",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1"
+  }
 }
