@@ -13,6 +13,62 @@
 [data-panel="daily"] {
   margin-top: 28px;
 }
+[data-panel="launch"] {
+  margin-top: 28px;
+}
+.launch-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.launch-step {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.launch-step h3 {
+  margin: 16px 0 8px;
+}
+.launch-step p {
+  line-height: 1.7;
+  flex-grow: 1;
+}
+[data-panel="launch"] > details {
+  margin: 20px 0;
+}
+[data-panel="launch"] textarea {
+  min-height: 120px;
+}
+#contract-suite,
+#contract-response {
+  min-height: 260px;
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+}
+#contract-results pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.decision-matrix {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.decision-matrix > article {
+  min-width: 0;
+}
+@media (max-width: 750px) {
+  .launch-path,
+  .decision-matrix {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .daily-intro {
   background: linear-gradient(120deg, #eeebff, #fff);
 }

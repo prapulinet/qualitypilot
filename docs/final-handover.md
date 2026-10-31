@@ -1,6 +1,6 @@
 # Local portfolio handover
 
-For the 1.2 Daily Workbench release, read the [new tools and interview supplement](daily-workbench.md) and [current verification](verification.md). The snapshot below records the earlier 1.1 handover, not the expanded 1.2 test totals.
+For later releases, read the [1.2 Daily Workbench supplement](daily-workbench.md), [1.3 QA Launchpad and contract checks](sdet-workflow.md) and [current verification](verification.md). The snapshot below records the earlier 1.1 handover, not current test totals.
 
 Verified application revision: `35e08b23518d114da7c320538f3a7c090214a277`.
 

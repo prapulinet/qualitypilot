@@ -238,7 +238,9 @@ test("guided checks require evidence and the expanded workbench is accessible an
   await expect(page.locator("#daily-accessibility")).toContainText(
     "Record a Failed outcome",
   );
-  for (const section of await page.locator(".daily-tool").all())
+  for (const section of await page
+    .locator('[data-panel="daily"] .daily-tool')
+    .all())
     if (!(await section.evaluate((n) => n.open)))
       await section.locator("summary").click();
   const audit = await new AxeBuilder({ page })

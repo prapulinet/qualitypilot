@@ -19,6 +19,10 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## What you can do
 
+**QA Launchpad (v1.3):** follow a guided workflow, build feature-specific campaign prompts and binary decision tables, then add designs directly to QA workspace. API Contract Studio checks recorded JSON responses with reusable assertions, captures actual local health evidence, exports JUnit and shares its assertion engine with a Node CLI for CI. [Junior-to-senior workflow and contract format](docs/sdet-workflow.md).
+
+![QA Launchpad with guided workflow and reusable test tools](docs/images/qa-launchpad.png)
+
 **Daily Workbench (v1.2):** clarify story readiness, timebox exploratory sessions, annotate expected/actual screenshots, build boundary test data, select regression cases by declared tags, compare JUnit/Playwright reports, and record guided accessibility/security observations. Local tools connect findings to the existing Bug Builder. No AI key or Jira access is required. [Workflow, limits and interview demo](docs/daily-workbench.md).
 
 ![Daily workbench with eight local QA tools](docs/images/daily-workbench.png)
@@ -46,7 +50,7 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## Quick start
 
-For interview preparation, read the [project learning guide](docs/interview-learning-guide.md) or download its [Word version](docs/QualityPilot_Interview_and_Learning_Guide.docx). These explain the verified 1.1 baseline; the [Daily Workbench supplement](docs/daily-workbench.md) explains the 1.2 tools. The [handover notes](docs/final-handover.md) record the earlier application revision and current boundaries.
+For interview preparation, read the [project learning guide](docs/interview-learning-guide.md) or download its [Word version](docs/QualityPilot_Interview_and_Learning_Guide.docx). These explain the verified 1.1 baseline; read the [Daily Workbench supplement](docs/daily-workbench.md) for 1.2 and [QA Launchpad and contract checks](docs/sdet-workflow.md) for 1.3. The [handover notes](docs/final-handover.md) record the earlier application revision and current boundaries.
 
 Requires Node.js **22.9+** and npm.
 
@@ -76,7 +80,7 @@ npm run report
 | `npm run check`           | Syntax validation across application, test and tooling JavaScript |
 | `npm run format:check`    | Consistent source formatting                                      |
 | `npm run report`          | Open generated browser report                                     |
-| `npm run audit:ui`        | Inspect accessibility findings across the seven views             |
+| `npm run audit:ui`        | Inspect accessibility findings across the nine views              |
 | `npm run preview:capture` | Recreate real screenshots and a sample regression result          |
 
 ## Five-minute demo
@@ -90,7 +94,7 @@ npm run report
 
 ## Quality evidence
 
-Current local validation: **44 native tests + 66 browser checks passed**. Browser checks cover 33 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans, including the expanded Daily Workbench.
+Current local validation: **50 native tests + 76 browser checks passed**. Browser checks cover 38 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans, including Daily Workbench and QA Launchpad. Native checks also verify the shared contract engine and CLI exit/JUnit behavior.
 
 Every browser test owns a fresh Node server on an ephemeral port. Tests do not depend on an external website, shared cart state or a live AI provider.
 
@@ -129,6 +133,12 @@ CI runs on pushes, pull requests, manual dispatch and a daily schedule. Native t
 ```mermaid
 flowchart LR
   Browser[Browser workspace] --> API[Node HTTP API]
+  Browser --> LocalRules[Browser QA domain rules]
+  LocalRules --> Workspace[Versioned projects and explicit local backups]
+  LocalRules --> Contracts[Shared contract assertion engine]
+  CLI[Node contract CLI] --> Contracts
+  Contracts --> JUnit[JUnit evidence]
+  JUnit --> Inbox[Local report comparison]
   API --> Baseline[Baseline scenario templates]
   API --> Gateway[Validated HTTPS AI adapter]
   API --> Commerce[Isolated demo sessions]

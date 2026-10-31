@@ -11,6 +11,7 @@ try {
   });
   const page = await context.newPage();
   for (const view of [
+    "launch",
     "daily",
     "workspace",
     "workbench",

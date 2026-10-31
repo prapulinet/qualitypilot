@@ -527,6 +527,42 @@ window.addEventListener("beforeunload", (event) => {
     event.returnValue = "";
   }
 });
+window.addEventListener("qp:workspace-add", (event) => {
+  const requestId = event.detail?.requestId;
+  try {
+    const incoming = importWorkspaces(event.detail?.backup);
+    if (incoming.length !== 1) throw Error("Add one campaign at a time.");
+    let added = false;
+    operation(() => {
+      if (projects.length >= 5)
+        throw Error(
+          "Maximum 5 projects. Export a backup before starting another collection.",
+        );
+      if (projects.some((p) => p.id === incoming[0].id))
+        throw Error("This campaign already exists in QA workspace.");
+      projects.push(incoming[0]);
+      selected = incoming[0].id;
+      selectedRun = "";
+      added = true;
+    });
+    added = added && projects.some((p) => p.id === incoming[0].id);
+    const result = added
+      ? "Campaign added without replacing existing projects. Review current designs, then save locally or export."
+      : $("#workspace-status").textContent;
+    if (added) message(result);
+    window.dispatchEvent(
+      new CustomEvent("qp:workspace-added", {
+        detail: { requestId, added, message: result },
+      }),
+    );
+  } catch (error) {
+    window.dispatchEvent(
+      new CustomEvent("qp:workspace-added", {
+        detail: { requestId, added: false, message: error.message },
+      }),
+    );
+  }
+});
 try {
   const raw = localStorage.getItem("qp-workspaces-v1");
   if (raw) {

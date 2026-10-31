@@ -2,10 +2,10 @@
 
 Validated locally on Node.js v24.19.0, Windows:
 
-- Native tests: **44 passed, 0 failed**.
-- Playwright: **66 passed, 0 failed** — desktop Chromium and Pixel 7 mobile emulation.
+- Native tests: **50 passed, 0 failed**.
+- Playwright: **76 passed, 0 failed** — desktop Chromium and Pixel 7 mobile emulation.
 - Browser tests own isolated application servers; no live AI keys or external demo sites are used.
-- Accessibility scans cover all eight views, including the expanded Daily Workbench, plus generated draft and completed regression states, in both browser projects.
+- Accessibility scans cover all nine views, including Daily Workbench and expanded QA Launchpad/assertion builder, plus generated draft and completed regression states, in both browser projects.
 - Actual desktop/mobile previews are under `docs/images`.
 - An actual fixed-suite regression response is under `docs/evidence/regression-run.json`.
 - Failure screenshots, videos and traces were generated during failed pre-fix checks; the final passing run does not manufacture failure artifacts.
@@ -19,6 +19,8 @@ The original starter CI passed at https://github.com/prapulinet/qualitypilot/act
 The user reported that the instructed manual flows worked: commerce regression in the test lab, scenario generation/review/export, and demo sign-in/cart/checkout. This records user-reported acceptance; it is separate from automated test evidence.
 
 ## Published milestone status
+
+Version 1.3 adds six native tests and five browser behaviors per project: campaign handoff without replacing projects, duplicate/placeholder guards, decision-table outcomes/exclusions, actual local health capture, assertion form and invalidation, failed assertion handoff, JUnit round-trip into Automation Inbox, guided navigation and expanded-view accessibility/layout. Native checks cover pointer resolution, contract types/validation, decision generation, campaign approval guards and actual CLI exit codes/JUnit. See the published 1.3 commit's Actions run for remote verification; prior runs below cover only their named revisions. The synthetic health response fixture is training data, separate from actual local capture.
 
 The 1.2 Daily Workbench adds six browser behaviors in both projects and four native tests. Checks cover story clarification, boundary data/CSV exports, exact regression tags, exploratory findings, screenshot annotations, JUnit comparisons, Playwright retries, walkthrough evidence guards and expanded-view accessibility/layout. The Word guide remains a record of the verified 1.1 baseline; [Daily Workbench](daily-workbench.md) is its 1.2 learning supplement. See GitHub Actions for the corresponding published 1.2 commit run; earlier runs below verify only their named revisions.
 

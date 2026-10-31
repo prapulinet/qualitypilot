@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "name": "Local health contract",
+  "rules": [
+    {"name":"HTTP success","path":"/status","op":"equals","expected":200},
+    {"name":"JSON content type","path":"/headers/content-type","op":"includes","expected":"application/json"},
+    {"name":"Health status","path":"/body/status","op":"equals","expected":"ok"},
+    {"name":"AI configuration flag","path":"/body/aiConfigured","op":"type","expected":"boolean"}
+  ]
+}

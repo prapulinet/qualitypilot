@@ -2,27 +2,31 @@
 
 ## Scope
 
-Validate a local JavaScript QA workbench with scenario review, an optional gateway boundary, demo commerce and a fixed HTTP suite runner. Risk priorities: misleading AI provenance, invalid inputs, cross-session data exposure, incorrect totals, duplicate checkout, unsafe rendering and misleading test evidence.
+Validate a local JavaScript QA workbench with versioned manual workflows, guided campaigns, decision tables, reusable contract checks, report comparison, an optional gateway boundary, demo commerce and a fixed HTTP suite runner. Risk priorities: misleading provenance, invalid inputs, cross-session data exposure, incorrect totals, duplicate checkout, unsafe rendering and misleading test evidence.
 
-| Risk                                     | Evidence                                                                  |
-| ---------------------------------------- | ------------------------------------------------------------------------- |
-| Templates mistaken for AI                | Source labels, baseline source assertion and unavailable-gateway recovery |
-| Invalid requests mutate state            | Boundary, malformed JSON, media-type and oversized-body tests             |
-| Wrong cart or currency values            | Integer-cent calculations and quantity-limit tests                        |
-| Session data leaks                       | Cart and order ownership checks                                           |
-| Checkout retry duplicates an order       | Idempotency and cart-clearing assertions                                  |
-| Generated markup executes                | Browser test injects markup and verifies text-only output                 |
-| Shared state causes flakiness            | Fresh server per API/browser test and disposable suite sessions           |
-| Failure analysis overclaims              | Explicit diagnostic expectation and rule-based evidence assertions        |
-| UI unusable on mobile/keyboard           | Responsive overflow and focus/activation checks                           |
-| Low contrast or missing accessible names | axe WCAG A/AA scans across seven views on desktop/mobile                  |
+| Risk                                                | Evidence                                                                  |
+| --------------------------------------------------- | ------------------------------------------------------------------------- |
+| Templates mistaken for AI                           | Source labels, baseline source assertion and unavailable-gateway recovery |
+| Invalid requests mutate state                       | Boundary, malformed JSON, media-type and oversized-body tests             |
+| Wrong cart or currency values                       | Integer-cent calculations and quantity-limit tests                        |
+| Session data leaks                                  | Cart and order ownership checks                                           |
+| Checkout retry duplicates an order                  | Idempotency and cart-clearing assertions                                  |
+| Generated markup executes                           | Browser test injects markup and verifies text-only output                 |
+| Shared state causes flakiness                       | Fresh server per API/browser test and disposable suite sessions           |
+| Failure analysis overclaims                         | Explicit diagnostic expectation and rule-based evidence assertions        |
+| UI unusable on mobile/keyboard                      | Responsive overflow and focus/activation checks                           |
+| Low contrast or missing accessible names            | axe WCAG A/AA scans across nine views on desktop/mobile                   |
+| Generated designs appear already verified           | Placeholder approval guard and zero-execution campaign assertions         |
+| Campaign handoff overwrites existing work           | Append-only handoff, duplicate rejection and collection rollback guards   |
+| Missing/null/type mismatch creates false API passes | JSON Pointer, structural equality and strict validation tests             |
+| Invalid CLI input leaves misleading prior artifacts | Process exit-code checks and failing validation JUnit replacement         |
 
 ## Layers
 
 The connected workspace adds requirement-change impact, editable design versions, snapshot retention, explicit local persistence, malformed-backup rejection, confirmed deletion, failed-result handoff, retest-based closure/reopening and release-policy checks. Its manual results are not added to automated CI pass counts.
 
-- **40 native tests:** scenario behavior, API contracts, commerce boundaries, run orchestration and simulated provider contracts.
-- **54 browser checks:** 27 workflows/assertion groups on desktop and mobile Chromium. The mobile project uses device emulation, not a physical phone.
+- **50 native tests:** scenario behavior, HTTP contracts, commerce boundaries, run orchestration, simulated provider contracts, planning helpers, decision tables, reusable assertion rules and CLI behavior.
+- **76 browser checks:** 38 workflows/assertion groups on desktop and mobile Chromium. The mobile project uses device emulation, not a physical phone. The suite-wide budget is five minutes; each test retains its 20-second timeout.
 - **Built-in test lab:** smoke (5), regression (12), diagnostic (13, including 1 intentional failure). These are separate from the repository test counts.
 - **Visual inspection:** actual desktop/mobile screenshots captured from the running app and inspected for layout.
 

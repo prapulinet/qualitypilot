@@ -66,6 +66,7 @@ function download(data, filename, type = "application/json") {
 
 function navigate() {
   const view = [
+    "launch",
     "daily",
     "workspace",
     "workbench",
@@ -81,7 +82,9 @@ function navigate() {
     panel.hidden = panel.dataset.panel !== view;
   document.querySelector(
     'section.metrics[aria-label="Latest execution metrics"]',
-  ).hidden = ["daily", "workspace", "coverage", "bugs"].includes(view);
+  ).hidden = ["launch", "daily", "workspace", "coverage", "bugs"].includes(
+    view,
+  );
   for (const link of document.querySelectorAll("[data-view]")) {
     if (link.dataset.view === view) {
       link.setAttribute("aria-current", "page");
