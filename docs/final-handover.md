@@ -1,5 +1,7 @@
 # Local portfolio handover
 
+For the 1.2 Daily Workbench release, read the [new tools and interview supplement](daily-workbench.md) and [current verification](verification.md). The snapshot below records the earlier 1.1 handover, not the expanded 1.2 test totals.
+
 Verified application revision: `35e08b23518d114da7c320538f3a7c090214a277`.
 
 Final local regression: 40 native tests and 54 desktop/mobile Chromium checks passed. Syntax and formatting checks passed. Published CI for the application revision succeeded: https://github.com/prapulinet/qualitypilot/actions/runs/41198223155.

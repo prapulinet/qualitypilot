@@ -13,6 +13,7 @@
     <script type="module" src="/workspace.js"></script>
     <script type="module" src="/bugs.js"></script>
     <script type="module" src="/coverage.js"></script>
+    <script type="module" src="/daily.js"></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to workspace</a>
@@ -23,6 +24,9 @@
       >
       <div class="workspace-label">YOUR WORKSPACE</div>
       <nav aria-label="Workspace">
+        <a href="#daily" data-view="daily"
+          ><span aria-hidden="true">✦</span> Daily workbench</a
+        >
         <a href="#workspace" data-view="workspace"
           ><span aria-hidden="true">▦</span> QA workspace</a
         >
@@ -836,6 +840,23 @@ Refresh the page"
               confirm actual product rules before using.
             </p>
           </details>
+        </section>
+        <section data-panel="daily" aria-labelledby="daily-title" hidden>
+          <div class="daily-intro panel">
+            <span class="tag">LOCAL TOOLS · NO API KEY</span>
+            <h2 id="daily-title">Your everyday testing companion.</h2>
+            <p>Clarify a story. Explore a journey. Keep the evidence.</p>
+            <p class="muted">
+              Eight practical tools for manual and automation testers. Data
+              stays in this tab until you download or hand a draft to Bug
+              Builder. Refresh clears workbench inputs; export what you need
+              first.
+            </p>
+            <div class="daily-pills">
+              <span>01 Understand</span><span>02 Investigate</span
+              ><span>03 Compare</span><span>04 Report</span>
+            </div>
+          </div>
         </section>
         <footer>
           <span

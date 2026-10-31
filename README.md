@@ -19,6 +19,10 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## What you can do
 
+**Daily Workbench (v1.2):** clarify story readiness, timebox exploratory sessions, annotate expected/actual screenshots, build boundary test data, select regression cases by declared tags, compare JUnit/Playwright reports, and record guided accessibility/security observations. Local tools connect findings to the existing Bug Builder. No AI key or Jira access is required. [Workflow, limits and interview demo](docs/daily-workbench.md).
+
+![Daily workbench with eight local QA tools](docs/images/daily-workbench.png)
+
 **Connected QA Workspace (v1.1):** manage local projects, acceptance-criterion revisions, editable/reviewed designs, session snapshots, observed results, linked defects and passing retests. Derive a human release-review report from current evidence. Import Coverage planner drafts and hand failed-session details to the Bug Report Builder. [Architecture and walkthrough](docs/connected-workspace.md).
 
 ![Connected QA workspace — synthetic demonstration data](docs/images/qa-workspace.png)
@@ -42,7 +46,7 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## Quick start
 
-For interview preparation, read the [project learning guide](docs/interview-learning-guide.md) or download its [Word version](docs/QualityPilot_Interview_and_Learning_Guide.docx). The [handover notes](docs/final-handover.md) record the verified application revision and current boundaries.
+For interview preparation, read the [project learning guide](docs/interview-learning-guide.md) or download its [Word version](docs/QualityPilot_Interview_and_Learning_Guide.docx). These explain the verified 1.1 baseline; the [Daily Workbench supplement](docs/daily-workbench.md) explains the 1.2 tools. The [handover notes](docs/final-handover.md) record the earlier application revision and current boundaries.
 
 Requires Node.js **22.9+** and npm.
 
@@ -86,7 +90,7 @@ npm run report
 
 ## Quality evidence
 
-Current local validation: **40 native tests + 54 browser checks passed**. Browser checks cover 27 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans of all seven views.
+Current local validation: **44 native tests + 66 browser checks passed**. Browser checks cover 33 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans, including the expanded Daily Workbench.
 
 Every browser test owns a fresh Node server on an ephemeral port. Tests do not depend on an external website, shared cart state or a live AI provider.
 

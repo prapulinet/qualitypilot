@@ -208,8 +208,14 @@ test("boundary helper and populated workspace are accessible and responsive", as
   await page
     .getByText("Numeric boundary test data assistant", { exact: true })
     .click();
-  await page.getByLabel("Inclusive minimum", { exact: true }).fill("8");
-  await page.getByLabel("Inclusive maximum", { exact: true }).fill("20");
+  await page
+    .locator('[data-panel="workspace"]')
+    .getByLabel("Inclusive minimum", { exact: true })
+    .fill("8");
+  await page
+    .locator('[data-panel="workspace"]')
+    .getByLabel("Inclusive maximum", { exact: true })
+    .fill("20");
   await page
     .getByRole("button", { name: "Generate boundaries", exact: true })
     .click();

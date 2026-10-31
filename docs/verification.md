@@ -2,10 +2,10 @@
 
 Validated locally on Node.js v24.19.0, Windows:
 
-- Native tests: **40 passed, 0 failed**.
-- Playwright: **54 passed, 0 failed** — desktop Chromium and Pixel 7 mobile emulation.
+- Native tests: **44 passed, 0 failed**.
+- Playwright: **66 passed, 0 failed** — desktop Chromium and Pixel 7 mobile emulation.
 - Browser tests own isolated application servers; no live AI keys or external demo sites are used.
-- Accessibility scans cover all seven views, plus generated draft and completed regression states, in both browser projects.
+- Accessibility scans cover all eight views, including the expanded Daily Workbench, plus generated draft and completed regression states, in both browser projects.
 - Actual desktop/mobile previews are under `docs/images`.
 - An actual fixed-suite regression response is under `docs/evidence/regression-run.json`.
 - Failure screenshots, videos and traces were generated during failed pre-fix checks; the final passing run does not manufacture failure artifacts.
@@ -19,6 +19,8 @@ The original starter CI passed at https://github.com/prapulinet/qualitypilot/act
 The user reported that the instructed manual flows worked: commerce regression in the test lab, scenario generation/review/export, and demo sign-in/cart/checkout. This records user-reported acceptance; it is separate from automated test evidence.
 
 ## Published milestone status
+
+The 1.2 Daily Workbench adds six browser behaviors in both projects and four native tests. Checks cover story clarification, boundary data/CSV exports, exact regression tags, exploratory findings, screenshot annotations, JUnit comparisons, Playwright retries, walkthrough evidence guards and expanded-view accessibility/layout. The Word guide remains a record of the verified 1.1 baseline; [Daily Workbench](daily-workbench.md) is its 1.2 learning supplement. See GitHub Actions for the corresponding published 1.2 commit run; earlier runs below verify only their named revisions.
 
 Application commit `35e08b23518d114da7c320538f3a7c090214a277` passed GitHub CI: https://github.com/prapulinet/qualitypilot/actions/runs/41198223155. Native Node 22/24 jobs and the Linux browser job succeeded. The final local handover regression also passed 40 native tests, 54 browser checks, syntax checks and formatting. Documentation-only handover changes may follow this application revision and should receive their normal CI run after publishing.
 

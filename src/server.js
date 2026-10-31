@@ -7,6 +7,8 @@ import { createCommerce } from "./commerce.js";
 import { executeSuite, analyzeRun } from "./runner.js";
 
 const assets = new Map([
+  ["/daily.js", ["daily.js", "text/javascript; charset=utf-8"]],
+  ["/daily-model.js", ["daily-model.js", "text/javascript; charset=utf-8"]],
   ["/workspace.js", ["workspace.js", "text/javascript; charset=utf-8"]],
   [
     "/workspace-model.js",
