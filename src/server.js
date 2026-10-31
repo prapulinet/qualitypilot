@@ -7,6 +7,8 @@ import { createCommerce } from "./commerce.js";
 import { executeSuite, analyzeRun } from "./runner.js";
 
 const assets = new Map([
+  ["/bugs.js", ["bugs.js", "text/javascript; charset=utf-8"]],
+  ["/bug-model.js", ["bug-model.js", "text/javascript; charset=utf-8"]],
   ["/", ["index.html", "text/html; charset=utf-8"]],
   ["/app.js", ["app.js", "text/javascript; charset=utf-8"]],
   ["/styles.css", ["styles.css", "text/css; charset=utf-8"]],
@@ -78,7 +80,7 @@ export function createServer({
           "content-type": type,
           "x-content-type-options": "nosniff",
           "content-security-policy":
-            "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data: blob:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
         });
         return res.end(content);
       }

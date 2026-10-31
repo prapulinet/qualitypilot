@@ -19,6 +19,8 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## What you can do
 
+**Local Bug Report Builder:** describe an observed issue, enter known expected/actual behavior, and prepare an editable Jira-ready report. Missing details stay marked for confirmation. Copy/download the text and attach screenshots manually in Jira. No AI or Jira access is required; bug inputs and screenshot previews are not uploaded or persisted by the app. [Workflow](docs/bug-builder.md).
+
 **New: Risk & Coverage Planner.** Turn acceptance criteria into linked review prompts, score impact × likelihood, track manual evidence, surface high-risk gaps and export a formula-safe CSV traceability matrix. [Workflow and metric definitions](docs/coverage-planner.md).
 
 ![Risk and coverage planner](docs/images/coverage-planner.png)
@@ -64,7 +66,7 @@ npm run report
 | `npm run check`           | Syntax validation across application, test and tooling JavaScript |
 | `npm run format:check`    | Consistent source formatting                                      |
 | `npm run report`          | Open generated browser report                                     |
-| `npm run audit:ui`        | Inspect accessibility findings across the five views              |
+| `npm run audit:ui`        | Inspect accessibility findings across the six views               |
 | `npm run preview:capture` | Recreate real screenshots and a sample regression result          |
 
 ## Five-minute demo
@@ -78,7 +80,7 @@ npm run report
 
 ## Quality evidence
 
-Current local validation: **25 native tests + 36 browser checks passed**. Browser checks cover 18 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans of all five views.
+Current local validation: **30 native tests + 44 browser checks passed**. Browser checks cover 22 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans of all six views.
 
 Every browser test owns a fresh Node server on an ephemeral port. Tests do not depend on an external website, shared cart state or a live AI provider.
 
@@ -97,6 +99,10 @@ CI runs on pushes, pull requests, manual dispatch and a daily schedule. Native t
 **Test lab with actual results**
 
 ![Test lab](docs/images/test-lab.png)
+
+**Local Jira-ready bug report builder (synthetic example)**
+
+![Bug report builder](docs/images/bug-builder.png)
 
 **Demo commerce**
 

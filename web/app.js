@@ -65,16 +65,21 @@ function download(data, filename, type = "application/json") {
 }
 
 function navigate() {
-  const view = ["workbench", "coverage", "runs", "shop", "guide"].includes(
-    location.hash.slice(1),
-  )
+  const view = [
+    "workbench",
+    "coverage",
+    "bugs",
+    "runs",
+    "shop",
+    "guide",
+  ].includes(location.hash.slice(1))
     ? location.hash.slice(1)
     : "workbench";
   for (const panel of document.querySelectorAll("[data-panel]"))
     panel.hidden = panel.dataset.panel !== view;
   document.querySelector(
     'section.metrics[aria-label="Latest execution metrics"]',
-  ).hidden = view === "coverage";
+  ).hidden = ["coverage", "bugs"].includes(view);
   for (const link of document.querySelectorAll("[data-view]")) {
     if (link.dataset.view === view) {
       link.setAttribute("aria-current", "page");

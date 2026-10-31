@@ -55,6 +55,31 @@ try {
     path: "docs/images/coverage-planner.png",
     fullPage: false,
   });
+  await page.goto(`${base}/#bugs`);
+  await page
+    .getByLabel("Observed issue", { exact: true })
+    .fill(
+      "Synthetic example: profile name changes disappear after refreshing the page.",
+    );
+  await page
+    .getByLabel("Expected result / acceptance criterion")
+    .fill("AC-2: the saved display name remains after a page refresh.");
+  await page
+    .getByLabel("Reproduction steps · one per line")
+    .fill(
+      "Open the test profile\nChange the display name\nSelect Save\nRefresh the page",
+    );
+  await page.getByRole("button", { name: "Prepare bug report" }).click();
+  await page.evaluate(() =>
+    window.scrollTo(
+      0,
+      document.querySelector('[data-panel="bugs"]').offsetTop - 24,
+    ),
+  );
+  await page.screenshot({
+    path: "docs/images/bug-builder.png",
+    fullPage: false,
+  });
   const mobile = await browser.newContext({
     ...devices["Pixel 7"],
     deviceScaleFactor: 1,

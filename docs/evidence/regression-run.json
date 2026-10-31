@@ -1,8 +1,8 @@
 {
-  "id": "313962f8-86f8-45de-b26e-17e419dadf66",
+  "id": "91d07a9b-5309-48cf-8869-4b4d2495d40b",
   "suite": "regression",
-  "createdAt": "2026-10-31T10:27:36.059Z",
-  "durationMs": 245,
+  "createdAt": "2026-10-31T10:50:11.396Z",
+  "durationMs": 284,
   "total": 12,
   "passed": 12,
   "failed": 0,
@@ -11,73 +11,73 @@
       "name": "Health endpoint is available",
       "category": "smoke",
       "status": "passed",
-      "durationMs": 34
+      "durationMs": 59
     },
     {
       "name": "Catalog exposes three products with integer prices",
       "category": "contract",
       "status": "passed",
-      "durationMs": 6
+      "durationMs": 12
     },
     {
       "name": "Unauthenticated cart access is rejected",
       "category": "access",
       "status": "passed",
-      "durationMs": 4
+      "durationMs": 6
     },
     {
       "name": "Invalid credentials are rejected",
       "category": "negative",
       "status": "passed",
-      "durationMs": 8
+      "durationMs": 16
     },
     {
       "name": "Demo user can sign in",
       "category": "positive",
       "status": "passed",
-      "durationMs": 8
+      "durationMs": 10
     },
     {
       "name": "Empty checkout is rejected",
       "category": "negative",
       "status": "passed",
-      "durationMs": 15
+      "durationMs": 20
     },
     {
       "name": "Invalid quantities do not change the cart",
       "category": "boundary",
       "status": "passed",
-      "durationMs": 53
+      "durationMs": 42
     },
     {
       "name": "Unknown product is rejected",
       "category": "negative",
       "status": "passed",
-      "durationMs": 4
+      "durationMs": 20
     },
     {
       "name": "Cart totals are calculated in cents",
       "category": "positive",
       "status": "passed",
-      "durationMs": 12
+      "durationMs": 5
     },
     {
       "name": "Checkout creates an order and empties the cart",
       "category": "positive",
       "status": "passed",
-      "durationMs": 30
+      "durationMs": 20
     },
     {
       "name": "Checkout retry returns the same order",
       "category": "reliability",
       "status": "passed",
-      "durationMs": 17
+      "durationMs": 5
     },
     {
       "name": "Order ownership is isolated between sessions",
       "category": "access",
       "status": "passed",
-      "durationMs": 30
+      "durationMs": 35
     }
   ],
   "source": "live-local-http",

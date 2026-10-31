@@ -10,6 +10,7 @@
     <title>QualityPilot · Quality engineering workspace</title>
     <link rel="stylesheet" href="/styles.css" />
     <script type="module" src="/app.js"></script>
+    <script type="module" src="/bugs.js"></script>
     <script type="module" src="/coverage.js"></script>
   </head>
   <body>
@@ -21,6 +22,9 @@
       >
       <div class="workspace-label">YOUR WORKSPACE</div>
       <nav aria-label="Workspace">
+        <a href="#bugs" data-view="bugs"
+          ><span aria-hidden="true">⚑</span> Bug report builder</a
+        >
         <a href="#coverage" data-view="coverage"
           ><span aria-hidden="true">◎</span> Coverage planner</a
         >
@@ -468,6 +472,171 @@ As a customer, I want to sign in so that I can view my orders.</textarea>
                 rel="noreferrer"
                 >Read the source and test strategy ↗</a
               >
+            </section>
+          </div>
+        </section>
+        <section data-panel="bugs" aria-labelledby="bugs-title" hidden>
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow dark">OBSERVE / REPRODUCE / REPORT</div>
+              <h2 id="bugs-title">Bug report builder</h2>
+              <p>From an observed issue to a reviewable, Jira-ready draft.</p>
+            </div>
+            <span class="tag">Local · no AI or Jira access needed</span>
+          </div>
+          <p class="muted">
+            Describe what you observed. Add the details you know; unknowns stay
+            marked for confirmation. Nothing here creates a Jira issue or
+            determines a root cause.
+          </p>
+          <div class="studio-grid">
+            <section class="panel">
+              <h3>What went wrong?</h3>
+              <form id="bug-form">
+                <label for="bug-issue">Observed issue</label
+                ><textarea
+                  id="bug-issue"
+                  name="issue"
+                  minlength="10"
+                  maxlength="2000"
+                  required
+                  placeholder="Example: Save button shows a success message, but my changes disappear after refresh."
+                ></textarea>
+                <label for="bug-title">Summary · optional override</label
+                ><input
+                  id="bug-title"
+                  name="title"
+                  maxlength="120"
+                  placeholder="Short, specific defect title"
+                />
+                <label for="bug-story">Jira story / AC reference</label
+                ><input
+                  id="bug-story"
+                  name="story"
+                  maxlength="100"
+                  placeholder="Example: QA-123 / AC-2"
+                />
+                <label for="bug-env">Environment</label
+                ><input
+                  id="bug-env"
+                  name="environment"
+                  maxlength="500"
+                  placeholder="Browser/device, app version, test environment"
+                />
+                <label for="bug-pre">Preconditions</label
+                ><textarea
+                  id="bug-pre"
+                  name="prerequisites"
+                  maxlength="1000"
+                  placeholder="Account role, existing data, logged-in state"
+                ></textarea>
+                <label for="bug-steps">Reproduction steps · one per line</label
+                ><textarea
+                  id="bug-steps"
+                  name="steps"
+                  maxlength="3000"
+                  placeholder="Open the profile page
+Change the display name
+Select Save
+Refresh the page"
+                ></textarea>
+                <label for="bug-expected"
+                  >Expected result / acceptance criterion</label
+                ><textarea
+                  id="bug-expected"
+                  name="expected"
+                  maxlength="2000"
+                  placeholder="Copy the approved expected behavior. If unknown, leave empty and confirm with the product owner."
+                ></textarea>
+                <label for="bug-actual"
+                  >Actual result · defaults to observed issue</label
+                ><textarea
+                  id="bug-actual"
+                  name="actual"
+                  maxlength="2000"
+                  placeholder="What actually happened? Include exact messages and observed state."
+                ></textarea>
+                <label for="bug-frequency">Frequency</label
+                ><select id="bug-frequency" name="frequency">
+                  <option>Not assessed</option>
+                  <option>Every attempt</option>
+                  <option>Intermittent</option>
+                  <option>Observed once</option>
+                </select>
+                <label for="bug-severity">Severity · your assessment</label
+                ><select id="bug-severity" name="severity">
+                  <option>Not assessed</option>
+                  <option>Blocker</option>
+                  <option>Critical</option>
+                  <option>Major</option>
+                  <option>Minor</option>
+                  <option>Cosmetic</option>
+                </select>
+                <p class="muted small-text">
+                  Assess impact with your team. Blocker: flow cannot continue;
+                  Critical: severe data/security/business impact; Major:
+                  important function broken; Minor: limited impact; Cosmetic:
+                  appearance. Priority is decided in triage.
+                </p>
+                <label for="bug-evidence">Evidence reference</label
+                ><textarea
+                  id="bug-evidence"
+                  name="evidence"
+                  maxlength="1000"
+                  placeholder="Screenshot filename, trace, defect evidence reference. Remove secrets and personal data."
+                ></textarea>
+                <button class="button primary" type="submit">
+                  Prepare bug report
+                </button>
+              </form>
+              <label for="bug-image"
+                >Optional screenshot · local preview only</label
+              ><input
+                id="bug-image"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+              /><img
+                id="bug-image-preview"
+                alt="Locally selected bug evidence screenshot"
+                hidden
+              /><button id="bug-clear" class="text-button" type="button">
+                Clear all bug details
+              </button>
+            </section>
+            <section class="panel bug-result">
+              <div class="panel-heading">
+                <h3>Jira-ready report</h3>
+                <span class="tag" id="bug-completeness"
+                  >Draft · not submitted</span
+                >
+              </div>
+              <p class="muted small-text">
+                No AI calls, server uploads or browser storage of bug details.
+                Copy text does not attach a screenshot. Do not include
+                confidential data unless your company permits using it here.
+              </p>
+              <label for="bug-output"
+                >Report text · editable before copying</label
+              ><textarea
+                id="bug-output"
+                spellcheck="false"
+                placeholder="Your report will appear here."
+              ></textarea>
+              <div class="hero-links">
+                <button id="bug-copy" class="button primary" disabled>
+                  Copy report</button
+                ><button id="bug-download" class="button subtle" disabled>
+                  Download text
+                </button>
+              </div>
+              <p
+                id="bug-status"
+                class="status"
+                role="status"
+                aria-live="polite"
+              ></p>
+              <h4>Questions before submitting</h4>
+              <ul id="bug-questions" class="guide-list"></ul>
             </section>
           </div>
         </section>
