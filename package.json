@@ -1,0 +1,9 @@
+{
+  "name": "qualitypilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Evidence-first QA portfolio with a deterministic test workbench and optional AI scenario adapter",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": { "start": "node src/server.js", "test": "node --test", "check": "node --check src/server.js && node --check src/scenarios.js && node --check src/provider.js" }
+}
