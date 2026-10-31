@@ -34,6 +34,17 @@ $login = & gh api user --jq .login
 if ($LASTEXITCODE -ne 0 -or $login -ne 'prapulinet') { throw 'Use the terminal authenticated as prapulinet. No token needs to be shared.' }
 $projectRoot = Split-Path -Parent $PSScriptRoot
 Publish-Repository -Root $projectRoot -ExpectedRemote 'https://github.com/prapulinet/qualitypilot.git'
+$metadataArguments = @(
+  'repo', 'edit', 'prapulinet/qualitypilot',
+  '--description', 'JavaScript QA workspace with Playwright, live API suites, demo commerce, reviewed scenarios and failure evidence.',
+  '--add-topic', 'javascript',
+  '--add-topic', 'playwright',
+  '--add-topic', 'test-automation',
+  '--add-topic', 'api-testing',
+  '--add-topic', 'qa-portfolio'
+)
+& gh @metadataArguments
+if ($LASTEXITCODE -ne 0) { throw 'Commits were pushed, but repository metadata could not be updated.' }
 if ($IncludeProfile) {
   $profileRoot = [IO.Path]::GetFullPath((Join-Path $projectRoot '..\prapulinet-profile'))
   Publish-Repository -Root $profileRoot -ExpectedRemote 'https://github.com/prapulinet/prapulinet.git'

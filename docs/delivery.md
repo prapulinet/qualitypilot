@@ -23,7 +23,7 @@ Meaningful increments are committed locally. In the terminal already authenticat
 powershell -NoProfile -ExecutionPolicy Bypass -File tools\publish.ps1 -IncludeProfile
 ```
 
-The script checks identity, remote, branch and clean working trees, fetches the remote head, rejects divergence, then pushes each new commit separately without force. The optional profile flag expects the sibling `prapulinet-profile` checkout used in this workspace; omit it in other clones. Current remote CI must be checked after publishing.
+The script checks identity, remote, branch and clean working trees, fetches the remote head, rejects divergence, then pushes each new commit separately without force. It also sets a descriptive repository summary and relevant QA topics. The optional profile flag expects the sibling `prapulinet-profile` checkout used in this workspace; omit it in other clones. Current remote CI must be checked after publishing.
 
 ## Daily behavior
 
