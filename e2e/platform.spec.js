@@ -6,6 +6,12 @@ test("review state persists and JSON export contains the actual review", async (
 }) => {
   await page.goto("/");
   await page
+    .getByRole("textbox", { name: "User story", exact: true })
+    .fill(
+      "As a customer, I want to view my orders and verify " +
+        "an-extra-long-reference-".repeat(12),
+    );
+  await page
     .getByRole("button", { name: "Generate draft", exact: true })
     .click();
   await page
@@ -25,6 +31,16 @@ test("review state persists and JSON export contains the actual review", async (
   expect(draft.source).toBe("baseline");
   expect(draft.scenarios[0].reviewed).toBe(true);
   await page.reload();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  const historyBounds = await page
+    .locator("#draft-history button")
+    .first()
+    .boundingBox();
+  expect(historyBounds.width).toBeLessThanOrEqual(page.viewportSize().width);
   await page.locator("#draft-history button").first().click();
   await expect(
     page.getByRole("button", {

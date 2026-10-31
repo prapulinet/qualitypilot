@@ -695,6 +695,8 @@ select {
 }
 .history-list {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   gap: 8px;
 }
 .history-list > p {
@@ -702,6 +704,7 @@ select {
   margin: 5px 0;
 }
 .history-item {
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -719,6 +722,8 @@ select {
   border-color: #ab95dc;
 }
 .history-item .description {
+  min-width: 0;
+  flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
