@@ -19,6 +19,8 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## What you can do
 
+**Compatibility Matrix (v1.4):** record manual journeys by environment, build and browser/OS, keep new contexts Not run, require observations/evidence, preserve exclusion reasons, export CSV/validated JSON and draft bugs with the failing context. [Workflow and limits](docs/compatibility-matrix.md).
+
 **QA Launchpad (v1.3):** follow a guided workflow, build feature-specific campaign prompts and binary decision tables, then add designs directly to QA workspace. API Contract Studio checks recorded JSON responses with reusable assertions, captures actual local health evidence, exports JUnit and shares its assertion engine with a Node CLI for CI. [Junior-to-senior workflow and contract format](docs/sdet-workflow.md).
 
 ![QA Launchpad with guided workflow and reusable test tools](docs/images/qa-launchpad.png)
@@ -50,7 +52,7 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## Quick start
 
-For interview preparation, read the [project learning guide](docs/interview-learning-guide.md) or download its [Word version](docs/QualityPilot_Interview_and_Learning_Guide.docx). These explain the verified 1.1 baseline; read the [Daily Workbench supplement](docs/daily-workbench.md) for 1.2 and [QA Launchpad and contract checks](docs/sdet-workflow.md) for 1.3. The [handover notes](docs/final-handover.md) record the earlier application revision and current boundaries.
+For interview preparation, read the updated [project learning guide](docs/interview-learning-guide.md) or download its [Word version](docs/QualityPilot_Interview_and_Learning_Guide.docx), covering release 1.4. Detailed workflows are available for [Daily Workbench](docs/daily-workbench.md), [QA Launchpad and contract checks](docs/sdet-workflow.md) and [Compatibility Matrix](docs/compatibility-matrix.md). The [handover notes](docs/final-handover.md) retain the earlier baseline history.
 
 Requires Node.js **22.9+** and npm.
 
@@ -94,7 +96,7 @@ npm run report
 
 ## Quality evidence
 
-Current local validation: **50 native tests + 76 browser checks passed**. Browser checks cover 38 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans, including Daily Workbench and QA Launchpad. Native checks also verify the shared contract engine and CLI exit/JUnit behavior.
+Current local validation: **52 native tests + 80 browser checks passed**. Browser checks cover 40 behaviors across desktop and mobile Chromium. They include successful workflows, validation, review persistence, exports, XSS-safe rendering, checkout limits, keyboard operation and automated accessibility scans, including Daily Workbench, QA Launchpad and populated Compatibility Matrix controls. Native checks also verify the shared contract engine, CLI exit/JUnit behavior and matrix backup/budget guards.
 
 Every browser test owns a fresh Node server on an ephemeral port. Tests do not depend on an external website, shared cart state or a live AI provider.
 

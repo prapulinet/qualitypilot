@@ -11,6 +11,7 @@ try {
   });
   await page.goto(`http://127.0.0.1:${server.address().port}/#launch`);
   await page.locator("#launch-plan-form").waitFor();
+  await page.locator("#launch-compatibility").waitFor({ state: "attached" });
   await page
     .locator('[data-panel="launch"] > details')
     .evaluateAll((nodes) => nodes.forEach((n) => (n.open = false)));

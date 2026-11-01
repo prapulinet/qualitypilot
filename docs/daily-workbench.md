@@ -60,4 +60,4 @@ Record Not run, Passed, Failed, Blocked or Not applicable for each prompt. Compl
 
 Explain an unclear checkout story, download its open questions, generate data for the actual demo cart's 1–5 quantity rule, select regression tests using a declared checkout tag, and run the genuine Test lab regression. Then import the generated JUnit report. For defect workflow training, label any simulated finding clearly; demonstrate its handoff to Bug Builder. Show a real UI comparison using permitted screenshots and describe the review judgment. Connect this work to the existing QA workspace for versioned designs, retests and release review; workbench exports are separate artifacts, not automatic workspace imports.
 
-The original Word learning guide documents the verified 1.1 baseline. Read this supplement for the 1.2 tools and current verification notes for updated test counts.
+The updated Word learning guide now covers release 1.4, including these tools. This page retains their detailed 1.2 workflow; use current verification notes for the latest test counts.

@@ -1,6 +1,6 @@
 # Local portfolio handover
 
-For later releases, read the [1.2 Daily Workbench supplement](daily-workbench.md), [1.3 QA Launchpad and contract checks](sdet-workflow.md) and [current verification](verification.md). The snapshot below records the earlier 1.1 handover, not current test totals.
+For current learning material, read the updated [Word guide](QualityPilot_Interview_and_Learning_Guide.docx), [Daily Workbench](daily-workbench.md), [QA Launchpad and contract checks](sdet-workflow.md), [Compatibility Matrix](compatibility-matrix.md) and [verification](verification.md). The snapshot below records the earlier 1.1 handover, not current test totals.
 
 Verified application revision: `35e08b23518d114da7c320538f3a7c090214a277`.
 

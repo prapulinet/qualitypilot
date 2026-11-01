@@ -7,6 +7,11 @@ import { createCommerce } from "./commerce.js";
 import { executeSuite, analyzeRun } from "./runner.js";
 
 const assets = new Map([
+  ["/compatibility.js", ["compatibility.js", "text/javascript; charset=utf-8"]],
+  [
+    "/compatibility-model.js",
+    ["compatibility-model.js", "text/javascript; charset=utf-8"],
+  ],
   ["/sdet.js", ["sdet.js", "text/javascript; charset=utf-8"]],
   ["/sdet-model.js", ["sdet-model.js", "text/javascript; charset=utf-8"]],
   ["/daily.js", ["daily.js", "text/javascript; charset=utf-8"]],

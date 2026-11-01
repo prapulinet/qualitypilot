@@ -1,6 +1,6 @@
 # QualityPilot Project Understanding and Interview Guide
 
-Prepared for Prapul | Local portfolio release 1.1 | 31 October 2026
+Prepared for Prapul | Local portfolio release 1.4
 
 QualityPilot is a JavaScript QA portfolio application that connects test design, manual execution evidence, defects and release review. This guide explains what it does, why the design matters, and how to demonstrate it honestly in an interview.
 
@@ -8,13 +8,13 @@ The main lesson is simple: a passing result is useful only when the requirement,
 
 ### Verified project snapshot
 
-| Item             | Verified position                                                  |
-| ---------------- | ------------------------------------------------------------------ |
-| Source revision  | 35e08b2                                                            | Connected local QA workflow |
-| Automated checks | 40 native tests and 54 desktop and mobile Chromium checks          |
-| Remote CI        | Successful run 41198223155 for revision 35e08b2                    |
-| Runtime          | JavaScript ESM and Node.js 22.9 or newer; no runtime dependencies  |
-| Operating scope  | Local portfolio application; manual evidence remains user reported |
+| Item                   | Verified position                                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Release scope          | 1.4 local portfolio with guided planning and compatibility tracking                                          |
+| Automated checks       | 52 native tests and 80 desktop and mobile Chromium checks                                                    |
+| Published CI reference | Release 1.3 revision 025c95a passed run 41244540826. Check Actions for the latest 1.4 run after publication. |
+| Runtime                | JavaScript ESM and Node.js 22.9 or newer; no runtime dependencies                                            |
+| Operating scope        | Local portfolio application; manual evidence remains user reported                                           |
 
 ### How to use this guide
 
@@ -28,7 +28,7 @@ Use the questions to test your understanding. Explain unfamiliar code only after
 
 Repository: https://github.com/prapulinet/qualitypilot
 
-Verified CI: https://github.com/prapulinet/qualitypilot/actions/runs/41198223155
+Latest workflow evidence: https://github.com/prapulinet/qualitypilot/actions
 
 Roman Telugu memory cue: Project features list matrame kaadu; requirement nunchi evidence, defect, release decision varaku sambandham explain cheyyali.
 
@@ -36,11 +36,11 @@ Roman Telugu memory cue: Project features list matrame kaadu; requirement nunchi
 
 ### A natural sixty second introduction
 
-I use QualityPilot to demonstrate a complete QA workflow in JavaScript. A tester can capture acceptance criteria, create and review test designs, record manual observations with evidence, and connect failures to defects and retests. The application also has a real API test lab and Playwright browser automation.
+QualityPilot is my JavaScript QA portfolio. QA Launchpad guides a tester from requirement clarification through reviewed designs, observations, defects and release review. It also includes live local API checks, reusable contract assertions and Playwright browser automation.
 
 Its main design feature is version awareness. When a requirement or test design changes, older evidence cannot automatically establish readiness for the new version. The release report explains missing reviews, stale evidence and important open defects. A human still makes the release decision.
 
-The current local application needs no AI key or Jira access. It has 40 native checks and 54 desktop and mobile browser checks, with GitHub Actions evidence. It is a portfolio demonstration, so I distinguish its tested features from production capabilities that are outside its scope.
+The current local application needs no AI key or Jira access. It has 52 native checks and 80 desktop and mobile browser checks. Before a demo, I check the latest GitHub Actions run for the exact revision. It is a portfolio demonstration, so I distinguish its tested features from production capabilities outside its scope.
 
 ### Expand the explanation when asked
 
@@ -56,12 +56,14 @@ Describe the work you can demonstrate: decisions you understand, code paths you 
 
 Roman Telugu memory cue: Short answer lo problem, workflow, important decision, test evidence cheppandi. Senior laga sound avvadam kanna decisions enduku teesukunnamo ardham chesukovadam mukhyam.
 
-## Understand the seven application areas
+## Understand the nine application areas
 
 Each area has a distinct purpose. Start with QA workspace for a connected project, then use the supporting tools when they help a specific testing task.
 
 | Area               | Practical purpose                                                                                                                       |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| QA Launchpad       | Guided workflow, feature campaign prompts, decision tables, API contracts and a manual Compatibility Matrix.                            |
+| Daily workbench    | Story clarification, exploration, screenshot annotations, data probes, regression tags, report comparison and guided checklists.        |
 | QA workspace       | Projects, acceptance criteria, reviewed designs, session snapshots, observed results, defects, retests and release review.              |
 | Bug report builder | Turn an observation and known facts into an editable Jira-ready text draft. Unknown details remain questions.                           |
 | Coverage planner   | Link criteria to deterministic positive, negative and boundary prompts; score risk and track manual review or evidence.                 |
@@ -72,7 +74,7 @@ Each area has a distinct purpose. Start with QA workspace for a connected projec
 
 ### Know where data lives
 
-Workspace changes begin in memory. Save locally explicitly writes its projects, evidence references and defects to browser storage. Export JSON for a separate backup. Coverage and scenario drafts have their own browser storage. The bug builder keeps details only in the current tab unless you intentionally copy or download them.
+Launchpad, Daily Workbench and Compatibility Matrix inputs stay in the current tab unless explicitly exported or handed to workspace. Workspace changes begin in memory. Save locally explicitly writes its projects, evidence references and defects to browser storage. Export JSON for a separate backup. Coverage and scenario drafts have their own browser storage. The bug builder keeps details only in the current tab unless you intentionally copy or download them.
 
 The HTTP test lab retains up to 20 runs in server memory. Restarting the server resets that history. Demo sessions are synthetic and expire. These are different storage lifecycles; do not describe them as a durable team database.
 
@@ -164,19 +166,21 @@ Roman Telugu memory cue: Senior explanation lo count of test cases kanna risk, e
 
 The runtime is deliberately small. JavaScript ESM is used in the browser and Node server. Playwright, axe and Prettier are development tools; the application declares no runtime package dependencies.
 
-### Two execution paths
+### Execution paths
 
-Manual path: browser UI to pure domain rules to in-memory projects, with explicit local save or JSON export. Automated API path: browser test lab to Node HTTP API to fixed local suites and demo commerce. Playwright independently drives the browser against fresh app servers.
+Manual path: browser UI to pure domain rules and in-memory projects, with explicit save or export. Automated paths: Test lab to Node HTTP API and fixed commerce suites; contract CLI to shared assertions and recorded responses. Playwright independently drives the browser against fresh app servers.
 
-| Code location                 | Responsibility                                                           |
-| ----------------------------- | ------------------------------------------------------------------------ |
-| web/workspace-model.js        | Revisions, lifecycle guards, snapshots, backup schema and release policy |
-| web/workspace.js              | Forms, selection, local persistence, import and UI rollback              |
-| web/coverage-model.js         | Risk summaries and safe CSV export                                       |
-| web/bug-model.js              | Deterministic bug drafts and explicit unknown details                    |
-| src/server.js                 | HTTP routing, bounded JSON input, static asset allowlist and errors      |
-| src/commerce.js and runner.js | Demo session state and real fixed HTTP suites                            |
-| test and e2e folders          | Native behavior checks and isolated browser journeys                     |
+| Code location                                 | Responsibility                                                           |
+| --------------------------------------------- | ------------------------------------------------------------------------ |
+| web/workspace-model.js                        | Revisions, lifecycle guards, snapshots, backup schema and release policy |
+| web/workspace.js                              | Forms, selection, local persistence, import and UI rollback              |
+| web/coverage-model.js                         | Risk summaries and safe CSV export                                       |
+| web/bug-model.js                              | Deterministic bug drafts and explicit unknown details                    |
+| src/server.js                                 | HTTP routing, bounded JSON input, static asset allowlist and errors      |
+| src/commerce.js and runner.js                 | Demo session state and real fixed HTTP suites                            |
+| web/sdet-model.js and tools/check-contract.js | Shared planning and contract assertions for browser and Node CLI         |
+| web/compatibility-model.js                    | Bounded manual environment and build records with validated backups      |
+| test and e2e folders                          | Native behavior checks and isolated browser journeys                     |
 
 ### Why separate domain rules from rendering
 
@@ -215,11 +219,11 @@ The collection supports 5 projects, with up to 30 criteria, 100 designs, 20 sess
 
 ## Explain automated checks and CI evidence
 
-The verified release has 40 native tests and 54 browser checks. The browser count represents 27 behaviors across desktop Chromium and Pixel 7 mobile emulation. Emulation is not testing on a physical phone, and Chromium coverage does not establish Firefox or WebKit support.
+The local release has 52 native tests and 80 browser checks. The browser count represents 40 behaviors across desktop Chromium and Pixel 7 mobile emulation. Emulation is not testing on a physical phone, and Chromium coverage does not establish Firefox or WebKit support.
 
 ### Native checks
 
-Native Node tests exercise scenario validation, provider contracts, HTTP behavior, commerce state, risk calculation, CSV export safety, bug formatting, revision invalidation, defect closure and backup links. Controlled AI gateway doubles test the adapter boundary without making paid or live model calls.
+Native Node tests exercise scenario validation, provider contracts, HTTP behavior, commerce state, risk calculation, CSV export safety, bug formatting, revision invalidation, defect closure and backup links. Campaign, decision-table, compatibility and CLI checks test their domain guards. Controlled AI gateway doubles test the adapter boundary without making paid or live model calls.
 
 ### Browser checks
 
@@ -349,6 +353,170 @@ Practise with synthetic examples. Follow company policy before entering workplac
 
 For the current local portfolio scope, the implementation and checks are ready to demonstrate. Software still needs maintenance when dependencies, requirements or operating conditions change. A completed milestone is not a promise that no development will ever be needed.
 
+## Use the Daily Workbench effectively
+
+Daily Workbench contains eight small local tools. Choose a tool for the current testing question, keep the resulting artifact, and connect confirmed designs or findings to the appropriate workflow. These tools reduce repetitive preparation; they do not infer a complete product specification.
+
+| Tool                      | Practical use                                                                                                    |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Story readiness           | Record criteria, limits, roles, test data, recovery and dependencies; download unanswered clarification areas.   |
+| Exploratory session       | Set a mission and timebox, capture actual observations and evidence references, then draft a bug from a finding. |
+| Screenshot comparison     | Load expected and actual UI images, zoom, add numbered notes, and export annotated PNGs and notes.               |
+| Test data builder         | Generate boundary values and additional probes from confirmed integer or text-length rules.                      |
+| Regression selection      | Match explicit changed module tags to declared case and dependency tags; review unmapped risk.                   |
+| Automation inbox          | Import JUnit or Playwright JSON and compare matching test identities across runs.                                |
+| Accessibility walkthrough | Record keyboard, focus, labels, zoom and screen-reader observations.                                             |
+| Security walkthrough      | Record agreed permission, session, input, retry and sensitive-data checks.                                       |
+
+### Understand the evidence boundaries
+
+Image annotations are human observations, not automatic design interpretation. Regression tags are declared mappings, not source-code impact analysis. A report import does not execute or authenticate its tests. Retry recovery remains visible as flaky, and a missing previous test is not counted as passed.
+
+The workbench keeps inputs in this tab. Download before refresh. Completed guided checks require observations and evidence; Not applicable requires a reason. Do not upload workplace screenshots or requirements without following company policy.
+
+Roman Telugu memory cue: Tool select chesi artifact save cheyyandi. Imported report ante tests ippudu run ayyayani kaadu; screenshot difference ante automatic ga bug ani kaadu.
+
+## Build a guided test campaign
+
+QA Launchpad gives a junior tester a visible route through Understand, Design, Check APIs, Execute, Investigate and Review release. The links open tools; they do not mark the work completed or establish release readiness.
+
+### Create a useful starting pack
+
+Enter a feature name and choose General, Account, Commerce, Upload or API.
+
+Supply one to eight distinct confirmed acceptance criteria. Each receives positive, negative, boundary and recovery design prompts.
+
+Answer the profile questions with the responsible people. Default risk starts at neutral 3 by 3 and needs assessment.
+
+Add the campaign to QA workspace or download its compatible JSON backup. Existing projects are preserved; duplicate campaign imports are rejected.
+
+### Move from prompts to executable cases
+
+Every generated expected result contains [NEEDS CONFIRMATION]. This deliberately stops approval. Replace it with approved behavior, specify exact steps, data and prerequisites, then review the current design. Only after review should you start a session and record what happened.
+
+For example, the actual demo criterion may say that checkout empties the cart and returns an order reference. Refine the positive prompt into sign-in, add a known product, confirm the total, checkout, verify the reference and inspect the empty cart. Define negative and recovery expectations from the actual API rules.
+
+### Explain the handoff design
+
+The browser sends a local campaign event. Workspace reconstructs the allowed backup schema, checks project and byte limits, and appends one project transactionally. No existing project is replaced. No execution result is created. The five-project and two-megabyte collection limits still apply.
+
+Roman Telugu memory cue: Generated pack ante starting draft. Expected result confirm chesi review chesina tarvata execute cheyyali. Import chesinanduku pass count raadu.
+
+## Model business rules with decision tables
+
+Decision Table Studio helps make combinations visible when a feature depends on several binary conditions. Enter up to five distinct True or False conditions. The tool enumerates two to thirty-two combinations and leaves the expected behavior for you to confirm.
+
+### An illustrative rule
+
+The following is a fictional learning rule, not an implemented QualityPilot permission policy: allow an action only when both an identity is valid and its role is permitted. Use the real approved rule when building your own table.
+
+| Valid identity | Permitted role | Illustrative expected outcome |
+| -------------- | -------------- | ----------------------------- |
+| False          | False          | Reject the action             |
+| False          | True           | Reject the action             |
+| True           | False          | Reject the action             |
+| True           | True           | Allow the action              |
+
+### Handle applicability explicitly
+
+Every included row requires an expected outcome. Every excluded combination requires a reason. Do not exclude an awkward case just because it is difficult to set up. Confirm that the state is impossible or outside the agreed scope and preserve that explanation in the CSV.
+
+Download the decision CSV to retain the complete table, unresolved outcomes and exclusion reasons. Add only the fully specified included rows to a new QA workspace project. These designs remain unreviewed until a tester reviews them. The workspace project does not contain excluded rows; retain the CSV separately.
+
+### Know what enumeration cannot prove
+
+A binary table is useful for rule interaction, but it does not cover arbitrary input values, sequence-dependent behavior, timing or every integration state. It is not pairwise generation or proof of complete coverage. Combine it with boundaries, state transitions, end-to-end journeys and exploration.
+
+Roman Telugu memory cue: Conditions combinations tool generate chesthundi. Expected outcomes business rules nunchi ravali. Exclusion ki reason undali; table CSV separate ga retain cheyyandi.
+
+## Reuse API contracts in the browser and CI
+
+API Contract Studio evaluates a JSON response record against explicit assertions. The same pure engine runs in the browser and tools/check-contract.js. This lets a tester develop checks interactively and reuse them in automation without maintaining different comparison logic.
+
+### Capture or supply a response
+
+Capture local health response performs a real GET to this app’s fixed /api/health endpoint. It records status, content type, elapsed fetch and body-parse time, and JSON body. To inspect another system, use a permitted recorded response from your approved API process. Importing it does not call that API or authenticate the record.
+
+| Assertion concept  | Example or boundary                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------ |
+| Path               | /body/items/0/id uses JSON Pointer; ~1 escapes a slash and ~0 a tilde.                     |
+| Equality and types | Structural equality distinguishes false, null, missing fields and mismatched types.        |
+| Other operators    | exists, absent, min, max, length and includes; no scripts or regexes execute.              |
+| Input limits       | One MB per JSON input; up to fifty uniquely named rules; nesting depth thirty.             |
+| Evidence           | Edited inputs invalidate earlier displayed results. Export current JSON evidence or JUnit. |
+
+### Use the assertion form and command line
+
+Add assertions with the form, or edit/import a versioned JSON suite. Download the reusable suite and response through your approved capture process. Then run:
+
+node tools/check-contract.js suite.json response.json --junit results.xml
+
+Exit 0 means assertions matched; 1 means an assertion failed; 2 means invalid input or an execution/write error. Invalid input writes a failing validation testcase when the JUnit destination is writable. The provided health-response.synthetic.json is training data, not a live API result.
+
+Import the resulting JUnit into Automation Inbox or draft a bug from failed checks. These assertions are not full JSON Schema, OpenAPI validation, load testing or proof of authorization coverage.
+
+Roman Telugu memory cue: Browser lo design chesina rules same engine tho CLI lo run avutayi. Offline response checks ni live API calls laga explain cheyyakandi.
+
+## Track compatibility across builds and environments
+
+Compatibility Matrix adds the environment context that a simple pass count can hide. Create a matrix scope, add environment names, build identifiers and browser or operating-system details, then add journeys with confirmed expected behavior. Up to eight environments and eight journeys create at most sixty-four planned combinations.
+
+### Record each actual observation
+
+Execute the journey separately in the agreed environment. Passed, Failed and Blocked outcomes require an observed result and evidence reference. Not applicable requires an explicit exclusion reason. Unrecorded combinations remain Not run. These are manual records; the tool does not launch those browsers or run tests on a physical device.
+
+| Synthetic context         | Example record                                                          |
+| ------------------------- | ----------------------------------------------------------------------- |
+| Build B1 and browser A    | Failed: order reference absent, with a synthetic capture reference.     |
+| Build B2 and browser A    | Starts as Not run. A result from B1 does not populate this new context. |
+| Unsupported agreed device | Not applicable only with the confirmed support-scope reason.            |
+
+### Keep context and evidence together
+
+A saved Failed outcome can draft a bug with journey expectation, actual observation, environment, build and browser details. Confirm exact reproduction steps before filing. Definitions are fixed inside a matrix; start a new scope when requirements change instead of silently reusing old evidence.
+
+Download CSV for the complete planned matrix and JSON for restoration. Inputs remain in the current tab until exported. Replacing the matrix requires confirmation. Malformed backups preserve current state; duplicate links, excessive dimensions and the 256 KB UTF-8 backup budget are validated. Over-budget mutations roll back.
+
+Imported observations are user supplied and not independently verified. Passed records do not certify all browser versions, devices or requirements. Keep original artifacts under your approved evidence process.
+
+Roman Telugu memory cue: Build maarithe kottha context ki Not run nunchi start cheyyandi. Browser peru enter chesinanduku aa browser lo test automatic ga jaragadu.
+
+## Demonstrate the current release with confidence
+
+Use a short story and synthetic data. The aim is to explain decisions and evidence clearly, not click through every screen. Keep the latest GitHub Actions run available and identify which revision it verifies.
+
+### A focused current workflow
+
+Open QA Launchpad and show how its six steps guide a tester.
+
+Build one campaign from a confirmed criterion. Show that unresolved expected behavior prevents approval in QA workspace.
+
+Use a small decision table and explain one included outcome and one justified exclusion.
+
+Capture the real local health response, check assertions, change one expectation and show the resulting failure evidence.
+
+Export JUnit and show it in Automation Inbox. Explain the difference between an imported record and a newly executed check.
+
+For compatibility training, label the example synthetic, record one failure with build/browser context, and hand it to Bug Builder.
+
+Return to QA workspace for actual version, retest and release-review reasoning.
+
+### Questions the new tools help answer
+
+**Why share the browser and CLI engine?**
+The same assertion semantics and validation rules are reused. Browser tests verify form interactions and exports; native tests verify the engine and CLI exit/report behavior.
+
+**Can generated cases be executed immediately?**
+They are design prompts. I confirm requirements, data, steps and expectations, then review the current design before recording execution.
+
+**How do you prevent misleading compatibility evidence?**
+I keep build and browser context separate, leave unexecuted combinations as Not run, require observations and evidence, and preserve exclusion reasons.
+
+**What is the strongest senior level explanation?**
+I explain where evidence comes from, which version it applies to, what validation checks and cannot check, and which risks remain for human review.
+
+Roman Telugu memory cue: Oka real API check, oka guarded manual flow, oka clear tradeoff chupinchandi. Features count kanna evidence explain cheyadam important.
+
 ## Prepare yourself before the interview
 
 ### A short learning sequence
@@ -397,6 +565,6 @@ npm run test:all
 
 npm run report
 
-Open http://127.0.0.1:3000. The optional message that .env was not found is normal when no AI gateway is configured. Restart the server after server-code updates. Review the README and docs/connected-workspace.md when you need implementation detail.
+Open http://127.0.0.1:3000/#launch for the guided workflow. Use the later chapters for current tools. The optional message that .env was not found is normal when no AI gateway is configured. Restart the server after server-code updates. Review the README and docs/connected-workspace.md when you need implementation detail.
 
 Roman Telugu memory cue: Code mottham memorize cheyalsina avasaram ledu. Purpose, oka complete workflow, oka real bug, important rules, limitations clear ga explain cheyyandi.

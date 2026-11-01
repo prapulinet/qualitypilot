@@ -2,8 +2,8 @@
 
 Validated locally on Node.js v24.19.0, Windows:
 
-- Native tests: **50 passed, 0 failed**.
-- Playwright: **76 passed, 0 failed** — desktop Chromium and Pixel 7 mobile emulation.
+- Native tests: **52 passed, 0 failed**.
+- Playwright: **80 passed, 0 failed** — desktop Chromium and Pixel 7 mobile emulation.
 - Browser tests own isolated application servers; no live AI keys or external demo sites are used.
 - Accessibility scans cover all nine views, including Daily Workbench and expanded QA Launchpad/assertion builder, plus generated draft and completed regression states, in both browser projects.
 - Actual desktop/mobile previews are under `docs/images`.
@@ -19,6 +19,8 @@ The original starter CI passed at https://github.com/prapulinet/qualitypilot/act
 The user reported that the instructed manual flows worked: commerce regression in the test lab, scenario generation/review/export, and demo sign-in/cart/checkout. This records user-reported acceptance; it is separate from automated test evidence.
 
 ## Published milestone status
+
+Version 1.4 adds manual compatibility tracking, build/context separation, evidence guards, failed-result handoff, CSV/JSON exports, validated restoration and a 256 KB UTF-8 rollback budget. Two native tests and two browser behaviors per project cover these additions. The learning guide and Word version now cover release 1.4. The previous published 1.3 revision `025c95a` passed GitHub Actions run https://github.com/prapulinet/qualitypilot/actions/runs/41244540826. Verify the corresponding 1.4 commit's run after publishing; that earlier run does not validate the new matrix.
 
 Version 1.3 adds six native tests and five browser behaviors per project: campaign handoff without replacing projects, duplicate/placeholder guards, decision-table outcomes/exclusions, actual local health capture, assertion form and invalidation, failed assertion handoff, JUnit round-trip into Automation Inbox, guided navigation and expanded-view accessibility/layout. Native checks cover pointer resolution, contract types/validation, decision generation, campaign approval guards and actual CLI exit codes/JUnit. See the published 1.3 commit's Actions run for remote verification; prior runs below cover only their named revisions. The synthetic health response fixture is training data, separate from actual local capture.
 

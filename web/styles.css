@@ -63,6 +63,26 @@
 .decision-matrix > article {
   min-width: 0;
 }
+#launch-compatibility fieldset {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+.matrix-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.matrix-results > article {
+  min-width: 0;
+}
+@media (max-width: 750px) {
+  .matrix-results {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 @media (max-width: 750px) {
   .launch-path,
   .decision-matrix {
