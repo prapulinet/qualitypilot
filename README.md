@@ -19,6 +19,10 @@ A JavaScript quality engineering workspace with scenario review, live API checks
 
 ## What you can do
 
+**API Response Compare (v1.4.1):** compare old/new JSON locally, inspect added/removed/value/type changes by exact JSON Pointer, explicitly ignore volatile fields and download a reviewable report. Input edits invalidate stale evidence. No API access or AI key needed. [Example, limits and interview explanation](docs/response-comparison.md).
+
+![API Response Compare showing a synthetic order total changing between builds](docs/images/api-response-compare.png)
+
 **Compatibility Matrix (v1.4):** record manual journeys by environment, build and browser/OS, keep new contexts Not run, require observations/evidence, preserve exclusion reasons, export CSV/validated JSON and draft bugs with the failing context. [Workflow and limits](docs/compatibility-matrix.md).
 
 **QA Launchpad (v1.3):** follow a guided workflow, build feature-specific campaign prompts and binary decision tables, then add designs directly to QA workspace. API Contract Studio checks recorded JSON responses with reusable assertions, captures actual local health evidence, exports JUnit and shares its assertion engine with a Node CLI for CI. [Junior-to-senior workflow and contract format](docs/sdet-workflow.md).

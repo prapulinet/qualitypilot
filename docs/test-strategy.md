@@ -2,6 +2,8 @@
 
 ## Scope
 
+Offline response comparison is covered by missing/null/type and escaped-key checks, exact ignore accounting, malformed/oversized/deep input rejection, difference limits, real JSON download assertions, stale-result invalidation, unsafe-markup rendering and desktop/mobile accessibility checks. See [response comparison](response-comparison.md).
+
 Validate a local JavaScript QA workbench with versioned manual workflows, guided campaigns, decision tables, reusable contract checks, report comparison, an optional gateway boundary, demo commerce and a fixed HTTP suite runner. Risk priorities: misleading provenance, invalid inputs, cross-session data exposure, incorrect totals, duplicate checkout, unsafe rendering and misleading test evidence.
 
 | Risk                                                | Evidence                                                                  |
@@ -25,8 +27,8 @@ Validate a local JavaScript QA workbench with versioned manual workflows, guided
 
 The connected workspace adds requirement-change impact, editable design versions, snapshot retention, explicit local persistence, malformed-backup rejection, confirmed deletion, failed-result handoff, retest-based closure/reopening and release-policy checks. Its manual results are not added to automated CI pass counts.
 
-- **52 native tests:** scenario behavior, HTTP contracts, commerce boundaries, run orchestration, simulated provider contracts, planning helpers, decision tables, reusable assertion rules, CLI behavior and compatibility matrix validation/rollback.
-- **80 browser checks:** 40 workflows/assertion groups on desktop and mobile Chromium. The mobile project uses device emulation, not a physical phone. The suite-wide budget is five minutes; each test retains its 20-second timeout.
+- **54 native tests:** scenario behavior, HTTP contracts, commerce boundaries, run orchestration, simulated provider contracts, planning helpers, decision tables, reusable assertion rules, CLI behavior and compatibility matrix validation/rollback.
+- **84 browser checks:** 42 workflows/assertion groups on desktop and mobile Chromium. The mobile project uses device emulation, not a physical phone. The suite-wide budget is five minutes; each test retains its 20-second timeout.
 - **Built-in test lab:** smoke (5), regression (12), diagnostic (13, including 1 intentional failure). These are separate from the repository test counts.
 - **Visual inspection:** actual desktop/mobile screenshots captured from the running app and inspected for layout.
 

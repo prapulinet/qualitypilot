@@ -7,6 +7,11 @@ import { createCommerce } from "./commerce.js";
 import { executeSuite, analyzeRun } from "./runner.js";
 
 const assets = new Map([
+  ["/response-diff.js", ["response-diff.js", "text/javascript; charset=utf-8"]],
+  [
+    "/response-diff-model.js",
+    ["response-diff-model.js", "text/javascript; charset=utf-8"],
+  ],
   ["/compatibility.js", ["compatibility.js", "text/javascript; charset=utf-8"]],
   [
     "/compatibility-model.js",

@@ -1,6 +1,6 @@
 {
   "name": "qualitypilot",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "description": "Evidence-first QA portfolio with a deterministic test workbench and optional AI scenario adapter",
   "type": "module",

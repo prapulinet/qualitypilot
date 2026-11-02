@@ -2,8 +2,8 @@
 
 Validated locally on Node.js v24.19.0, Windows:
 
-- Native tests: **52 passed, 0 failed**.
-- Playwright: **80 passed, 0 failed** — desktop Chromium and Pixel 7 mobile emulation.
+- Native tests: **54 passed, 0 failed**.
+- Playwright: **84 passed, 0 failed** — desktop Chromium and Pixel 7 mobile emulation.
 - Browser tests own isolated application servers; no live AI keys or external demo sites are used.
 - Accessibility scans cover all nine views, including Daily Workbench and expanded QA Launchpad/assertion builder, plus generated draft and completed regression states, in both browser projects.
 - Actual desktop/mobile previews are under `docs/images`.
@@ -19,6 +19,8 @@ The original starter CI passed at https://github.com/prapulinet/qualitypilot/act
 The user reported that the instructed manual flows worked: commerce regression in the test lab, scenario generation/review/export, and demo sign-in/cart/checkout. This records user-reported acceptance; it is separate from automated test evidence.
 
 ## Published milestone status
+
+Version 1.4.1 adds offline API Response Compare, with two native tests and two browser behaviors per project. All 54 native and 84 browser checks passed locally on Node.js v24.19.0. JSON download content, explicit ignores, malformed/over-limit inputs, stale-result invalidation, text-only rendering and expanded-tool accessibility/viewport checks are covered. An actual synthetic-example screenshot is at `docs/images/api-response-compare.png`. The existing Word guide covers 1.4; this small addition is explained in `docs/response-comparison.md`. Prior published 1.4 commit `3da1704` passed Actions run https://github.com/prapulinet/qualitypilot/actions/runs/41286998486; that run does not validate this new comparison feature.
 
 Version 1.4 adds manual compatibility tracking, build/context separation, evidence guards, failed-result handoff, CSV/JSON exports, validated restoration and a 256 KB UTF-8 rollback budget. Two native tests and two browser behaviors per project cover these additions. The learning guide and Word version now cover release 1.4. The previous published 1.3 revision `025c95a` passed GitHub Actions run https://github.com/prapulinet/qualitypilot/actions/runs/41244540826. Verify the corresponding 1.4 commit's run after publishing; that earlier run does not validate the new matrix.
 
